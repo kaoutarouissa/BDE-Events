@@ -9,3 +9,7 @@
 ### Diagramme de cas d'utilisation
 
 ![Diagramme de cas d'utilisation](./uml/use_case.png)
+
+### Diagramme ERD
+
+![Diagramme ERD](./uml/ERD.png)
