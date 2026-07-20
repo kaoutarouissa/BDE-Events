@@ -1,9 +1,11 @@
-#  BDE-Events – UML Diagrams
+# BDE Events
 
-## Use Case Diagram
+## Diagrammes UML
 
-![Use Case Diagram](./uml/use-case.png)
+### Diagramme de classes
 
-## Class Diagram
+![Diagramme de classes](./uml/class_diagram.png)
 
-![Class Diagram](./uml/class-diagram.png)
+### Diagramme de cas d'utilisation
+
+![Diagramme de cas d'utilisation](./uml/use_case.png)
