@@ -160,7 +160,7 @@
             </div>
           </div>
 
-          <a href="{{route }}"
+          <a href="{{  route('login') }}"
              class="mt-7 flex items-center justify-center gap-2 w-full py-4 rounded-2xl bg-[var(--ink)] text-white font-semibold display hover:bg-[var(--ink-2)] transition-colors">
             Se connecter
           </a>
