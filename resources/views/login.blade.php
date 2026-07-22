@@ -183,7 +183,7 @@
                     </div>
                 @endif
 
-                <form action="{{ route('login') }}" method="POST" class="mt-6 space-y-4 md:space-y-5">
+                <form action="{{ route('login.post') }}" method="POST" class="mt-6 space-y-4 md:space-y-5">
                     @csrf
 
                     <div>
