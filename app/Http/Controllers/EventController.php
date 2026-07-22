@@ -20,18 +20,22 @@ class EventController extends Controller
      */
     public function create(Request $request)
     {
-        //
-           $validate=$request->validate([
+            // dd('Controller reached');*
+            // dd($request->all());
+
+        $validate=$request->validate([
             'title'=>'required|string|max:255',
             'description'=>'required|string',
-            'time'=>'required|date_format:H:i',
+            'heure'=>'required|date_format:H:i',
             'date'=>'required|date',
             'lieu'=>'required|string|max:255',
             'prix'=>'required|numeric|min:0',
-            'place'=>'required|integer|min:1',
-        ]);
-        $event=Event::create($validate);
-        return view('bde-dacshboard',compact('event'));
+            'nombre_places'=>'required|integer|min:1',
+            ]);
+            $event=Event::create($validate);
+            // dd($event);
+            // dd($event);
+        return view('bde',compact('event'));
 
     }
 

@@ -110,6 +110,15 @@
         <h2 class="font-sora font-extrabold text-2xl mt-2.5 mb-1" style="color:#241636;">Créer un événement.</h2>
         <p class="text-[13.5px] leading-snug m-0" style="color:#6b6178;">Remplis les infos ci-dessous pour le rendre visible et ouvert aux inscriptions.</p>
 
+        @if ($errors->any())
+    <div style="color:red">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
         <form action="{{ route('create-event') }}" class="mt-5" method="post">
           @csrf
           <div class="mb-3.5">
@@ -131,7 +140,7 @@
             </div>
             <div class="mb-3.5 flex-1">
               <label  class="block text-xs font-semibold mb-1.5" style="color:#4a4157;">Heure</label>
-              <input type="time" name="time" class="w-full h-10 rounded-[9px] border px-3 text-[13.5px]" style="border-color:#ded5c4; background:#fffdf9; color:#241636;" />
+              <input type="time" name="heure" class="w-full h-10 rounded-[9px] border px-3 text-[13.5px]" style="border-color:#ded5c4; background:#fffdf9; color:#241636;" />
             </div>
           </div>
 
@@ -149,7 +158,7 @@
             </div>
             <div class="mb-3.5 flex-1">
               <label class="block text-xs font-semibold mb-1.5" style="color:#4a4157;">Jauge maximale</label>
-              <input type="number" min="1" placeholder="250" name="place"
+              <input type="number" min="1" placeholder="250" name="nombre_places"
                 class="w-full h-10 rounded-[9px] border px-3 text-[13.5px]" style="border-color:#ded5c4; background:#fffdf9; color:#241636;" />
             </div>
           </div>
