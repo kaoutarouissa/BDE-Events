@@ -142,7 +142,7 @@
         <div class="ticket w-full max-w-sm p-8 pr-10 drift">
           <div class="flex items-start justify-between">
             <div>
-              <p class="text-xs uppercase tracking-[0.2em] text-[var(--coral)] font-semibold">Accès étudiant</p>
+              <p class="text-xs uppercase tracking-[0.2em] text-[var(--coral)] font-semibold">Accès rapide</p>
               <h2 class="display text-3xl font-bold mt-2 leading-tight">Ton ticket<br>t'attend.</h2>
             </div>
             <span class="text-4xl">🎟️</span>
@@ -301,32 +301,6 @@
                     </div>
 
                 </div>
-
-                <!-- Formulaire -->
-
-                <form class="space-y-5">
-
-                    <input
-                        type="text"
-                        placeholder="Nom complet"
-                        class="w-full rounded-xl bg-white/10 border border-white/10 p-4 text-white placeholder:text-gray-400 outline-none">
-
-                    <input
-                        type="email"
-                        placeholder="Adresse e-mail"
-                        class="w-full rounded-xl bg-white/10 border border-white/10 p-4 text-white placeholder:text-gray-400 outline-none">
-
-                    <textarea
-                        rows="5"
-                        placeholder="Votre message..."
-                        class="w-full rounded-xl bg-white/10 border border-white/10 p-4 text-white placeholder:text-gray-400 outline-none resize-none"></textarea>
-
-                    <button
-                        class="w-full py-4 rounded-xl bg-amber-400 text-black font-semibold hover:bg-amber-300 transition">
-                        Envoyer le message
-                    </button>
-
-                </form>
 
             </div>
 

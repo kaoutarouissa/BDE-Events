@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BDE-Events — Tableau de bord</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body { font-family: 'Inter', sans-serif; background: linear-gradient(180deg, #120a20 0%, #1c1130 55%, #120a20 100%); }
+  .font-sora { font-family: 'Sora', sans-serif; }
+  .glow { background: radial-gradient(circle, rgba(236,76,130,0.25) 0%, rgba(236,76,130,0) 70%); }
+  .barcode { background: repeating-linear-gradient(90deg, rgba(255,255,255,0.18) 0 3px, transparent 3px 7px); }
+  .bg-bdeep { background-color: #120a20; }
+  .bg-card { background-color: #1f1436; }
+  .bg-cream { background-color: #f5efe1; }
+  .text-cream { color: #f5efe1; }
+  .text-creamdim { color: #cfc7b4; }
+  .text-gold { color: #f5a623; }
+  .bg-gold { background-color: #f5a623; }
+  .text-pink { color: #ec4c82; }
+  .bg-pink { background-color: #ec4c82; }
+  .text-muted { color: #a99bc9; }
+  .border-line { border-color: #2c1e49; }
+</style>
+</head>
+<body class="min-h-screen relative overflow-x-hidden pb-16">
+
+  <div class="glow absolute w-[420px] h-[420px] rounded-full -top-40 -right-32 pointer-events-none"></div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-20 bg-bdeep/70 border-b border-line" style="backdrop-filter: blur(10px);">
+    <div class="max-w-[1080px] mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <div class="w-[30px] h-[30px] rounded-[9px] bg-gold flex items-center justify-center font-sora font-extrabold text-sm" style="color:#120a20;">B</div>
+        <span class="font-sora font-bold text-cream text-base">BDE-Events</span>
+      </div>
+      <nav class="hidden md:flex items-center gap-7 text-[13px] text-muted font-medium">
+        <a href="#" class="text-cream">Espace BDE</a>
+        <a href="#">Événements</a>
+        <a href="#">Espace étudiant</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-full bg-gold/15 text-gold flex items-center justify-center font-sora font-bold text-[12px] flex-shrink-0">YB</div>
+          <span class="text-cream text-[13px]">
+            <span class="text-muted">Bienvenue,</span> <span class="font-semibold">Yassine Bennani</span>
+          </span>
+        </div>
+        <a href="#" class="flex items-center gap-2 px-4 py-2 rounded-[10px] border border-line text-cream text-[13px] font-medium">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+          Déconnexion
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="relative max-w-[1080px] mx-auto px-6 pt-12">
+    <!-- Hero -->
+    <div class="flex items-center gap-2.5 text-gold font-semibold text-xs tracking-wider">
+      <span class="w-[22px] h-[1.5px] bg-gold inline-block"></span>
+      BUREAU DES ÉLÈVES — ENAA · ADMIN
+    </div>
+    <h1 class="font-sora font-extrabold text-cream text-3xl md:text-4xl leading-tight mt-3 mb-3 max-w-[620px]">
+      Gère tes événements <span class="text-gold">sans</span> prise de tête.
+    </h1>
+    <p class="text-muted text-[15px] leading-relaxed max-w-[520px] mb-10">
+      Publie un événement, suis les inscriptions et garde un œil sur les places restantes,
+      en direct, pour chaque soirée, workshop ou tournoi.
+    </p>
+
+    <!-- Stats -->
+    <div class="grid gap-3.5 mb-10" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+      <div class="flex items-center gap-3 bg-card border border-line rounded-[14px] px-4.5 py-4">
+        <div class="w-[34px] h-[34px] rounded-[10px] bg-white/5 flex items-center justify-center flex-shrink-0">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ec4c82" stroke-width="2"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6.3 6.3l2.1 2.1M15.6 15.6l2.1 2.1M17.7 6.3l-2.1 2.1M8.4 15.6l-2.1 2.1"/></svg>
+        </div>
+        <div>
+          <p class="font-sora font-bold text-cream text-[22px] m-0">3</p>
+          <p class="text-muted text-[12.5px] mt-0.5 mb-0">Événements actifs</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 bg-card border border-line rounded-[14px] px-4.5 py-4">
+        <div class="w-[34px] h-[34px] rounded-[10px] bg-white/5 flex items-center justify-center flex-shrink-0">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ec4c82" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div>
+          <p class="font-sora font-bold text-cream text-[22px] m-0">354</p>
+          <p class="text-muted text-[12.5px] mt-0.5 mb-0">Places ouvertes</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 bg-card border border-gold/35 rounded-[14px] px-4.5 py-4">
+        <div class="w-[34px] h-[34px] rounded-[10px] bg-white/5 flex items-center justify-center flex-shrink-0">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f5a623" stroke-width="2"><path d="M2 9a3 3 0 1 0 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 1 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/></svg>
+        </div>
+        <div>
+          <p class="font-sora font-bold text-cream text-[22px] m-0">39</p>
+          <p class="text-muted text-[12.5px] mt-0.5 mb-0">Places restantes</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid -->
+    <div class="grid gap-6 items-start" style="grid-template-columns: minmax(280px, 380px) 1fr;">
+
+      <!-- Form -->
+      <section class="bg-cream rounded-[18px] px-6 pt-[26px] pb-7 sticky top-[88px]">
+        <div class="flex items-center justify-between">
+          <p class="text-pink font-bold text-[11px] tracking-wider m-0">ACCÈS RAPIDE</p>
+          <div class="w-[30px] h-[30px] rounded-[9px] bg-pink/10 flex items-center justify-center">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ec4c82" stroke-width="2"><path d="M2 9a3 3 0 1 0 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 1 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/></svg>
+          </div>
+        </div>
+        <h2 class="font-sora font-extrabold text-2xl mt-2.5 mb-1" style="color:#241636;">Créer un événement.</h2>
+        <p class="text-[13.5px] leading-snug m-0" style="color:#6b6178;">Remplis les infos ci-dessous pour le rendre visible et ouvert aux inscriptions.</p>
+
+        <form class="mt-5">
+          <div class="mb-3.5">
+            <label class="block text-xs font-semibold mb-1.5" style="color:#4a4157;">Titre de l'événement</label>
+            <input type="text" placeholder="Soirée d'intégration ENAA"
+              class="w-full h-10 rounded-[9px] border px-3 text-[13.5px]" style="border-color:#ded5c4; background:#fffdf9; color:#241636;" />
+          </div>
+
+          <div class="mb-3.5">
+            <label class="block text-xs font-semibold mb-1.5" style="color:#4a4157;">Description</label>
+            <textarea rows="3" placeholder="Quelques lignes pour donner envie de venir."
+              class="w-full rounded-[9px] border px-3 py-2 text-[13.5px] resize-none" style="border-color:#ded5c4; background:#fffdf9; color:#241636;"></textarea>
+          </div>
+
+          <div class="flex gap-3">
+            <div class="mb-3.5 flex-1">
+              <label class="block text-xs font-semibold mb-1.5" style="color:#4a4157;">Date</label>
+              <input type="date" class="w-full h-10 rounded-[9px] border px-3 text-[13.5px]" style="border-color:#ded5c4; background:#fffdf9; color:#241636;" />
+            </div>
+            <div class="mb-3.5 flex-1">
+              <label class="block text-xs font-semibold mb-1.5" style="color:#4a4157;">Heure</label>
+              <input type="time" class="w-full h-10 rounded-[9px] border px-3 text-[13.5px]" style="border-color:#ded5c4; background:#fffdf9; color:#241636;" />
+            </div>
+          </div>
+
+          <div class="mb-3.5">
+            <label class="block text-xs font-semibold mb-1.5" style="color:#4a4157;">Lieu</label>
+            <input type="text" placeholder="Le Hangar, Casablanca"
+              class="w-full h-10 rounded-[9px] border px-3 text-[13.5px]" style="border-color:#ded5c4; background:#fffdf9; color:#241636;" />
+          </div>
+
+          <div class="flex gap-3">
+            <div class="mb-3.5 flex-1">
+              <label class="block text-xs font-semibold mb-1.5" style="color:#4a4157;">Prix (MAD)</label>
+              <input type="number" min="0" placeholder="0"
+                class="w-full h-10 rounded-[9px] border px-3 text-[13.5px]" style="border-color:#ded5c4; background:#fffdf9; color:#241636;" />
+            </div>
+            <div class="mb-3.5 flex-1">
+              <label class="block text-xs font-semibold mb-1.5" style="color:#4a4157;">Jauge maximale</label>
+              <input type="number" min="1" placeholder="250"
+                class="w-full h-10 rounded-[9px] border px-3 text-[13.5px]" style="border-color:#ded5c4; background:#fffdf9; color:#241636;" />
+            </div>
+          </div>
+
+          <button type="submit" class="w-full h-11 mt-1.5 rounded-[10px] bg-gold font-sora font-bold text-sm flex items-center justify-center gap-2" style="color:#241636;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+            Publier l'événement
+          </button>
+        </form>
+      </section>
+
+      <!-- Dashboard list -->
+      <section class="min-w-0">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="font-sora font-bold text-cream text-xl m-0">Tableau de bord</h2>
+          <span class="flex items-center gap-1.5 text-[11.5px] text-gold font-semibold uppercase tracking-wide">
+            <span class="w-[7px] h-[7px] rounded-full bg-gold inline-block"></span>
+            temps réel
+          </span>
+        </div>
+
+        <div class="flex flex-col gap-4">
+          <!-- Event card 1 -->
+          <div class="bg-card border border-line rounded-2xl px-5 pt-[18px] pb-4">
+            <div class="flex justify-between gap-3">
+              <div class="flex-1 min-w-0">
+                <h3 class="font-sora font-bold text-cream text-[16.5px] mb-1 mt-0">Soirée d'intégration ENAA</h3>
+                <p class="text-muted text-[13px] leading-relaxed m-0">La soirée qui lance l'année. Dress code, DJ set et bonne humeur garantie.</p>
+              </div>
+              <div class="flex-shrink-0 h-[22px] px-2.5 rounded-full text-[11px] font-bold flex items-center bg-gold/15 text-gold">Ouvert</div>
+            </div>
+            <div class="flex flex-wrap gap-x-4 gap-y-2 mt-3">
+              <span class="flex items-center gap-1.5 text-[12.5px] text-creamdim">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                12 sept. 2026
+              </span>
+              <span class="flex items-center gap-1.5 text-[12.5px] text-creamdim">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                21:00
+              </span>
+              <span class="flex items-center gap-1.5 text-[12.5px] text-creamdim">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Le Hangar, Casablanca
+              </span>
+              <span class="flex items-center gap-1.5 text-[12.5px] text-creamdim">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10h12M4 14h9M18 6L8 20"/></svg>
+                80 MAD
+              </span>
+            </div>
+            <div class="barcode h-[1px] my-4"></div>
+            <div class="flex items-center gap-3.5">
+              <div class="flex-1">
+                <div class="flex justify-between text-[12.5px] mb-1.5">
+                  <span class="text-cream font-semibold">36 places restantes</span>
+                  <span class="text-muted">214/250</span>
+                </div>
+                <div class="h-1.5 rounded-full bg-white/[0.08] overflow-hidden">
+                  <div class="h-full rounded-full" style="width:86%; background:#f5a623;"></div>
+                </div>
+              </div>
+              <div class="flex gap-1.5 flex-shrink-0">
+                <button class="w-7 h-7 rounded-lg border border-line bg-white/[0.03] text-cream flex items-center justify-center">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>
+                </button>
+                <button class="w-7 h-7 rounded-lg border border-line bg-white/[0.03] text-cream flex items-center justify-center">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Event card 2 -->
+          <div class="bg-card border border-line rounded-2xl px-5 pt-[18px] pb-4">
+            <div class="flex justify-between gap-3">
+              <div class="flex-1 min-w-0">
+                <h3 class="font-sora font-bold text-cream text-[16.5px] mb-1 mt-0">Workshop UX/UI avec Figma</h3>
+                <p class="text-muted text-[13px] leading-relaxed m-0">Atelier pratique animé par un designer senior, places limitées.</p>
+              </div>
+              <div class="flex-shrink-0 h-[22px] px-2.5 rounded-full text-[11px] font-bold flex items-center bg-gold/15 text-gold">Ouvert</div>
+            </div>
+            <div class="flex flex-wrap gap-x-4 gap-y-2 mt-3">
+              <span class="flex items-center gap-1.5 text-[12.5px] text-creamdim">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                20 sept. 2026
+              </span>
+              <span class="flex items-center gap-1.5 text-[12.5px] text-creamdim">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                14:30
+              </span>
+              <span class="flex items-center gap-1.5 text-[12.5px] text-creamdim">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Amphi B, ENAA
+              </span>
+              <span class="flex items-center gap-1.5 text-[12.5px] text-creamdim">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10h12M4 14h9M18 6L8 20"/></svg>
+                Gratuit
+              </span>
+            </div>
+            <div class="barcode h-[1px] my-4"></div>
+            <div class="flex items-center gap-3.5">
+              <div class="flex-1">
+                <div class="flex justify-between text-[12.5px] mb-1.5">
+                  <span class="text-cream font-semibold">3 places restantes</span>
+                  <span class="text-muted">37/40</span>
+                </div>
+                <div class="h-1.5 rounded-full bg-white/[0.08] overflow-hidden">
+                  <div class="h-full rounded-full" style="width:93%; background:#f5a623;"></div>
+                </div>
+              </div>
+              <div class="flex gap-1.5 flex-shrink-0">
+                <button class="w-7 h-7 rounded-lg border border-line bg-white/[0.03] text-cream flex items-center justify-center">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>
+                </button>
+                <button class="w-7 h-7 rounded-lg border border-line bg-white/[0.03] text-cream flex items-center justify-center">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Event card 3 -->
+          <div class="bg-card border border-line rounded-2xl px-5 pt-[18px] pb-4">
+            <div class="flex justify-between gap-3">
+              <div class="flex-1 min-w-0">
+                <h3 class="font-sora font-bold text-cream text-[16.5px] mb-1 mt-0">Tournoi FIFA inter-promos</h3>
+                <p class="text-muted text-[13px] leading-relaxed m-0">Bracket à élimination directe. Récompenses pour le trio gagnant.</p>
+              </div>
+              <div class="flex-shrink-0 h-[22px] px-2.5 rounded-full text-[11px] font-bold flex items-center bg-pink/15 text-pink">Complet</div>
+            </div>
+            <div class="flex flex-wrap gap-x-4 gap-y-2 mt-3">
+              <span class="flex items-center gap-1.5 text-[12.5px] text-creamdim">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                3 oct. 2026
+              </span>
+              <span class="flex items-center gap-1.5 text-[12.5px] text-creamdim">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                18:00
+              </span>
+              <span class="flex items-center gap-1.5 text-[12.5px] text-creamdim">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Foyer étudiant, ENAA
+              </span>
+              <span class="flex items-center gap-1.5 text-[12.5px] text-creamdim">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10h12M4 14h9M18 6L8 20"/></svg>
+                20 MAD
+              </span>
+            </div>
+            <div class="barcode h-[1px] my-4"></div>
+            <div class="flex items-center gap-3.5">
+              <div class="flex-1">
+                <div class="flex justify-between text-[12.5px] mb-1.5">
+                  <span class="text-cream font-semibold">0 place restante</span>
+                  <span class="text-muted">64/64</span>
+                </div>
+                <div class="h-1.5 rounded-full bg-white/[0.08] overflow-hidden">
+                  <div class="h-full rounded-full" style="width:100%; background:#ec4c82;"></div>
+                </div>
+              </div>
+              <div class="flex gap-1.5 flex-shrink-0">
+                <button class="w-7 h-7 rounded-lg border border-line bg-white/[0.03] text-cream flex items-center justify-center">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>
+                </button>
+                <button class="w-7 h-7 rounded-lg border border-line bg-white/[0.03] text-cream flex items-center justify-center">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
