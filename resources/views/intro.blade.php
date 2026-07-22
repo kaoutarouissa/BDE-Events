@@ -108,17 +108,6 @@
           et retrouve tous tes tickets au même endroit.
         </p>
 
-        <div class="mt-10 flex flex-wrap items-center gap-4">
-          <a href="login.html"
-             class="group px-8 py-4 rounded-full bg-[var(--amber)] text-[var(--ink)] font-semibold display hover:bg-white transition-all duration-300 flex items-center gap-2">
-            Voir les événements
-            <span class="group-hover:translate-x-1 transition-transform">→</span>
-          </a>
-          <a href="#" class="px-8 py-4 rounded-full text-white/80 hover:text-white transition flex items-center gap-2">
-            En savoir plus
-          </a>
-        </div>
-
         <div class="mt-14 flex items-center gap-8">
           <div>
             <p class="display text-3xl font-bold text-white">120+</p>
