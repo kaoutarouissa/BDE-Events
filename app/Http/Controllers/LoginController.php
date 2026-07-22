@@ -16,8 +16,15 @@ class LoginController extends Controller
       if (Auth::attempt($validate)) {
         $request->session()->regenerate();
 
-        return redirect()->route('login');
-    }
+        if (Auth::user()->role == 'bde') {
+            return redirect()->route('bde-dacshboard');
+        }
+        
+         if (Auth::user()->role == 'Étudiant') {
+            return redirect()->route('Étudiant-dacshboard');
+        }
+        }
+        
      return back()->withErrors([
         'email' => 'Email ou mot de passe incorrect.',
     ]);
