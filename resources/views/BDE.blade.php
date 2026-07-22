@@ -71,28 +71,28 @@
         <div class="w-[34px] h-[34px] rounded-[10px] bg-white/5 flex items-center justify-center flex-shrink-0">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ec4c82" stroke-width="2"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6.3 6.3l2.1 2.1M15.6 15.6l2.1 2.1M17.7 6.3l-2.1 2.1M8.4 15.6l-2.1 2.1"/></svg>
         </div>
-        <div>
+        {{-- <div>
           <p class="font-sora font-bold text-cream text-[22px] m-0">3</p>
           <p class="text-muted text-[12.5px] mt-0.5 mb-0">Événements actifs</p>
-        </div>
+        </div> --}}
       </div>
       <div class="flex items-center gap-3 bg-card border border-line rounded-[14px] px-4.5 py-4">
         <div class="w-[34px] h-[34px] rounded-[10px] bg-white/5 flex items-center justify-center flex-shrink-0">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ec4c82" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
-        <div>
+        {{-- <div>
           <p class="font-sora font-bold text-cream text-[22px] m-0">354</p>
           <p class="text-muted text-[12.5px] mt-0.5 mb-0">Places ouvertes</p>
-        </div>
+        </div> --}}
       </div>
       <div class="flex items-center gap-3 bg-card border border-gold/35 rounded-[14px] px-4.5 py-4">
         <div class="w-[34px] h-[34px] rounded-[10px] bg-white/5 flex items-center justify-center flex-shrink-0">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f5a623" stroke-width="2"><path d="M2 9a3 3 0 1 0 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 1 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/></svg>
         </div>
-        <div>
+        {{-- <div>
           <p class="font-sora font-bold text-cream text-[22px] m-0">39</p>
           <p class="text-muted text-[12.5px] mt-0.5 mb-0">Places restantes</p>
-        </div>
+        </div> --}}
       </div>
     </div>
 
@@ -101,7 +101,7 @@
 
       <!-- Form -->
       <section class="bg-cream rounded-[18px] px-6 pt-[26px] pb-7 sticky top-[88px]">
-        <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between ">
           <p class="text-pink font-bold text-[11px] tracking-wider m-0">ACCÈS RAPIDE</p>
           <div class="w-[30px] h-[30px] rounded-[9px] bg-pink/10 flex items-center justify-center">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ec4c82" stroke-width="2"><path d="M2 9a3 3 0 1 0 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 1 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/></svg>
@@ -110,7 +110,8 @@
         <h2 class="font-sora font-extrabold text-2xl mt-2.5 mb-1" style="color:#241636;">Créer un événement.</h2>
         <p class="text-[13.5px] leading-snug m-0" style="color:#6b6178;">Remplis les infos ci-dessous pour le rendre visible et ouvert aux inscriptions.</p>
 
-        <form class="mt-5">
+        <form action="{{ route('create-reservation') }}" class="mt-5" method="post">
+          @csrf
           <div class="mb-3.5">
             <label class="block text-xs font-semibold mb-1.5" style="color:#4a4157;">Titre de l'événement</label>
             <input type="text" placeholder="Soirée d'intégration ENAA"
