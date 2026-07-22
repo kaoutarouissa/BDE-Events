@@ -18,9 +18,21 @@ class ReservationController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
         //
+        $validate=$request->validate([
+            'title'=>'required|string|max:255',
+            'description'=>'required|string',
+            'time'=>'required|date_format:H:i',
+            'date'=>'required|date',
+            'lieu'=>'required|string|max:255',
+            'prix'=>'required|numeric|min:0',
+            'place'=>'required|integer|min:1',
+        ]);
+        $reservation=Reservation::create([$validate]);
+        return view('bde-dacshboard',compact('reservation'));
+
     }
 
     /**

@@ -114,42 +114,42 @@
           @csrf
           <div class="mb-3.5">
             <label class="block text-xs font-semibold mb-1.5" style="color:#4a4157;">Titre de l'événement</label>
-            <input type="text" placeholder="Soirée d'intégration ENAA"
+            <input type="text" placeholder="Soirée d'intégration ENAA" name="title"
               class="w-full h-10 rounded-[9px] border px-3 text-[13.5px]" style="border-color:#ded5c4; background:#fffdf9; color:#241636;" />
           </div>
 
           <div class="mb-3.5">
             <label class="block text-xs font-semibold mb-1.5" style="color:#4a4157;">Description</label>
-            <textarea rows="3" placeholder="Quelques lignes pour donner envie de venir."
+            <textarea rows="3" placeholder="Quelques lignes pour donner envie de venir." name="description"
               class="w-full rounded-[9px] border px-3 py-2 text-[13.5px] resize-none" style="border-color:#ded5c4; background:#fffdf9; color:#241636;"></textarea>
           </div>
 
           <div class="flex gap-3">
             <div class="mb-3.5 flex-1">
               <label class="block text-xs font-semibold mb-1.5" style="color:#4a4157;">Date</label>
-              <input type="date" class="w-full h-10 rounded-[9px] border px-3 text-[13.5px]" style="border-color:#ded5c4; background:#fffdf9; color:#241636;" />
+              <input type="date" name="date" class="w-full h-10 rounded-[9px] border px-3 text-[13.5px]" style="border-color:#ded5c4; background:#fffdf9; color:#241636;" />
             </div>
             <div class="mb-3.5 flex-1">
-              <label class="block text-xs font-semibold mb-1.5" style="color:#4a4157;">Heure</label>
-              <input type="time" class="w-full h-10 rounded-[9px] border px-3 text-[13.5px]" style="border-color:#ded5c4; background:#fffdf9; color:#241636;" />
+              <label  class="block text-xs font-semibold mb-1.5" style="color:#4a4157;">Heure</label>
+              <input type="time" name="time" class="w-full h-10 rounded-[9px] border px-3 text-[13.5px]" style="border-color:#ded5c4; background:#fffdf9; color:#241636;" />
             </div>
           </div>
 
           <div class="mb-3.5">
             <label class="block text-xs font-semibold mb-1.5" style="color:#4a4157;">Lieu</label>
-            <input type="text" placeholder="Le Hangar, Casablanca"
+            <input type="text" placeholder="Le Hangar, Casablanca" name="lieu"
               class="w-full h-10 rounded-[9px] border px-3 text-[13.5px]" style="border-color:#ded5c4; background:#fffdf9; color:#241636;" />
           </div>
 
           <div class="flex gap-3">
             <div class="mb-3.5 flex-1">
               <label class="block text-xs font-semibold mb-1.5" style="color:#4a4157;">Prix (MAD)</label>
-              <input type="number" min="0" placeholder="0"
+              <input type="number" min="0" placeholder="0" name="prix"
                 class="w-full h-10 rounded-[9px] border px-3 text-[13.5px]" style="border-color:#ded5c4; background:#fffdf9; color:#241636;" />
             </div>
             <div class="mb-3.5 flex-1">
               <label class="block text-xs font-semibold mb-1.5" style="color:#4a4157;">Jauge maximale</label>
-              <input type="number" min="1" placeholder="250"
+              <input type="number" min="1" placeholder="250" name="place"
                 class="w-full h-10 rounded-[9px] border px-3 text-[13.5px]" style="border-color:#ded5c4; background:#fffdf9; color:#241636;" />
             </div>
           </div>
