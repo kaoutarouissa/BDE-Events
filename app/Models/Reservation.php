@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Reservation extends Model
 {
     //
+    public function userReservation(){
+        return $this->belongsTo(User::class);
+    }
     
 }
