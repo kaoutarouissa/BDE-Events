@@ -196,7 +196,7 @@
                                 name="email"
                                 value="{{ old('email') }}"
                                 class="text-sm md:text-base"
-                                placeholder="prenom.nom@ensa.ac.ma" required>
+                                placeholder="prenom.nom@ensa.ac.ma" >
                         </div>
                     </div>
 
@@ -209,20 +209,7 @@
                                 type="password"
                                 name="password"
                                 class="text-sm md:text-base"
-                                placeholder="••••••••" required>
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-[10px] md:text-xs font-medium uppercase tracking-wide text-[var(--paper-ink)]/60 mb-1.5">
-                            Rôle
-                        </label>
-                        <!-- Rej3na input select bch tkon a7san user experience -->
-                        <div class="field rounded-xl px-4 py-2.5 md:py-3 flex items-center gap-2">
-                            <select name="role" class="text-sm md:text-base text-[var(--paper-ink)] bg-transparent outline-none w-full appearance-none">
-                                <option value="Eleve">Élève</option>
-                                <option value="BDE">BDE</option>
-                            </select>
+                                placeholder="••••••••" >
                         </div>
                     </div>
 
@@ -250,7 +237,7 @@
                     <p class="text-[var(--paper-ink)]/60">
                         Pas encore de compte ?
                     </p>
-                    <a href="#" class="font-display font-semibold text-[var(--ink-deep)] hover:text-violet-600 transition whitespace-nowrap">
+                    <a href="{{ route('showRegister') }}" class="font-display font-semibold text-[var(--ink-deep)] hover:text-violet-600 transition whitespace-nowrap">
                         Créer un compte →
                     </a>
                 </div>
