@@ -110,7 +110,7 @@
         <h2 class="font-sora font-extrabold text-2xl mt-2.5 mb-1" style="color:#241636;">Créer un événement.</h2>
         <p class="text-[13.5px] leading-snug m-0" style="color:#6b6178;">Remplis les infos ci-dessous pour le rendre visible et ouvert aux inscriptions.</p>
 
-        <form action="{{ route('create-reservation') }}" class="mt-5" method="post">
+        <form action="{{ route('create-event') }}" class="mt-5" method="post">
           @csrf
           <div class="mb-3.5">
             <label class="block text-xs font-semibold mb-1.5" style="color:#4a4157;">Titre de l'événement</label>

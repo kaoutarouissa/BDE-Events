@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Reservation;
+use App\Models\Event;
 use Illuminate\Http\Request;
 
-class ReservationController extends Controller
+class EventController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,7 +21,18 @@ class ReservationController extends Controller
     public function create(Request $request)
     {
         //
-     
+           $validate=$request->validate([
+            'title'=>'required|string|max:255',
+            'description'=>'required|string',
+            'time'=>'required|date_format:H:i',
+            'date'=>'required|date',
+            'lieu'=>'required|string|max:255',
+            'prix'=>'required|numeric|min:0',
+            'place'=>'required|integer|min:1',
+        ]);
+        $event=Event::create($validate);
+        return view('bde-dacshboard',compact('event'));
+
     }
 
     /**
@@ -35,7 +46,7 @@ class ReservationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Reservation $reservation)
+    public function show(Event $event)
     {
         //
     }
@@ -43,7 +54,7 @@ class ReservationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Reservation $reservation)
+    public function edit(Event $event)
     {
         //
     }
@@ -51,7 +62,7 @@ class ReservationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Reservation $reservation)
+    public function update(Request $request, Event $event)
     {
         //
     }
@@ -59,7 +70,7 @@ class ReservationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Reservation $reservation)
+    public function destroy(Event $event)
     {
         //
     }

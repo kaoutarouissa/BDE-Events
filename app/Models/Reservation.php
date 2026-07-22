@@ -10,5 +10,9 @@ class Reservation extends Model
     public function userReservation(){
         return $this->belongsTo(User::class);
     }
+    public function event(){
+                return $this->belongsTo(Event::class);
+
+    }
     
 }

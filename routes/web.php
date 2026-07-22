@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ReservationController;
@@ -12,6 +13,6 @@ Route::get('showRegister',[RegisterController::class,'showRegister'])->name('sho
 Route::post('register',[RegisterController::class,'register'])->name('register');
 Route::get('/BDE_Dashboard',function(){return view('BDE');})->name('bde-dacshboard');
 Route::get('/Étudiant_Dashboard',function(){return view('Etudiant');})->name('Étudiant-dacshboard');
-Route::post('/reservation/{reservation}',[ReservationController::class,'create'])->name('create-reservation');
+Route::post('/event',[EventController::class,'create'])->name('create-event');
 
 
