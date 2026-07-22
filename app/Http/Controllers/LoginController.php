@@ -21,7 +21,7 @@ class LoginController extends Controller
             return redirect()->route('bde-dacshboard');
         }
         
-         if ($user->role == 'Étudiant') {
+         if ($user->role == 'etudiant') {
             return redirect()->route('Étudiant-dacshboard');
         }
         }
