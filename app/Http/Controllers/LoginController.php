@@ -14,13 +14,14 @@ class LoginController extends Controller
         'password'=>'required'
     ]);
       if (Auth::attempt($validate)) {
-        $request->session()->regenerate();
+          $request->session()->regenerate();
+          $user=Auth::user();
 
-        if (Auth::user()->role == 'bde') {
+        if ($user->role == 'bde') {
             return redirect()->route('bde-dacshboard');
         }
         
-         if (Auth::user()->role == 'Étudiant') {
+         if ($user->role == 'Étudiant') {
             return redirect()->route('Étudiant-dacshboard');
         }
         }
