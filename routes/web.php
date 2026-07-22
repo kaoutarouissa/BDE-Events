@@ -4,7 +4,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () { return view('intro');});
+Route::get('/', function () { return view('intro');})->name('intro');
 route::get('/login',function(){ return view('login');})->name('login');
 Route::post('/login', [LoginController::class, 'index'])->name('login.post');
 Route::get('showRegister',[RegisterController::class,'showRegister'])->name('showRegister');

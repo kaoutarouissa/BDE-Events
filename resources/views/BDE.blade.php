@@ -36,19 +36,14 @@
         <div class="w-[30px] h-[30px] rounded-[9px] bg-gold flex items-center justify-center font-sora font-extrabold text-sm" style="color:#120a20;">B</div>
         <span class="font-sora font-bold text-cream text-base">BDE-Events</span>
       </div>
-      <nav class="hidden md:flex items-center gap-7 text-[13px] text-muted font-medium">
-        <a href="#" class="text-cream">Espace BDE</a>
-        <a href="#">Événements</a>
-        <a href="#">Espace étudiant</a>
-      </nav>
+     
       <div class="flex items-center gap-3">
         <div class="flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-full bg-gold/15 text-gold flex items-center justify-center font-sora font-bold text-[12px] flex-shrink-0">YB</div>
           <span class="text-cream text-[13px]">
-            <span class="text-muted">Bienvenue,</span> <span class="font-semibold">Yassine Bennani</span>
+            <span class="text-muted">Bienvenue,</span> <span class="font-semibold">{{ Auth::user()->name }}</span>
           </span>
         </div>
-        <a href="#" class="flex items-center gap-2 px-4 py-2 rounded-[10px] border border-line text-cream text-[13px] font-medium">
+        <a href="{{ route('intro') }}" class="flex items-center gap-2 px-4 py-2 rounded-[10px] border border-line text-cream text-[13px] font-medium">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
           Déconnexion
         </a>
