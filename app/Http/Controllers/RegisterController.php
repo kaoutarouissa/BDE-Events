@@ -12,7 +12,7 @@ class RegisterController extends Controller
         $validation=$request->validate([
             'name'=>'required|string|max:255',
             'email'=>'required|email|unique:users,email',
-            'password'=>'required|string|confirmed',
+            'password'=>'required|confirmed',
             'role'=>'required'
             
         ]);

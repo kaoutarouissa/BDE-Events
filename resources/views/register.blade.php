@@ -82,17 +82,23 @@
       <h2 class="font-sora font-extrabold text-2xl mt-2 mb-1" style="color:#241636;">Créer mon compte</h2>
       <p class="text-[13.5px] mb-6 mt-0" style="color:#6b6178;">Quelques infos et tu es prêt à réserver.</p>
 
-      <form action="{{ route('showRegister') }}" method="post">
+      <form action="{{ route('register') }}" method="post">
         @csrf
         <div class="flex gap-3 mb-3.5">
           
           <div class="flex-1">
             <label class="block text-xs font-semibold mb-1.5" style="color:#4a4157;">Nom</label>
+            @error('name')
+                    <p class="text-red-500 text-sm">{{ $message }}</p>
+            @enderror
             <input type="text" placeholder="Bouzidi" name="name"
               class="w-full h-10 rounded-[9px] border px-3 text-[13.5px]" style="border-color:#ded5c4; background:#fffdf9; color:#241636;" />
           </div>
         </div>
              <div class="mb-5">
+                    @error('role')
+                        <p class="text-red-500 text-sm">{{ $message }}</p>
+                    @enderror
          <select
         name="role"
         class="w-full h-10 rounded-[9px] border px-3 text-[13.5px] focus:outline-none focus:ring-2 focus:ring-emerald-500"
@@ -105,19 +111,25 @@
         </div>
         <div class="mb-3.5">
           <label class="block text-xs font-semibold mb-1.5" style="color:#4a4157;">Email</label>
+          @error('email')
+            <p class="text-red-500 text-sm">{{ $message }}</p>
+            @enderror
           <input type="email" placeholder="sara.bouzidi@enaa.ma" name="email"
             class="w-full h-10 rounded-[9px] border px-3 text-[13.5px]" style="border-color:#ded5c4; background:#fffdf9; color:#241636;" />
         </div>
 
         <div class="mb-3.5">
           <label class="block text-xs font-semibold mb-1.5" style="color:#4a4157;">Mot de passe</label>
+          @error('password')
+            <p class="text-red-500 text-sm">{{ $message }}</p>
+            @enderror
           <input type="password" placeholder="8 caractères minimum" name="password"
             class="w-full h-10 rounded-[9px] border px-3 text-[13.5px]" style="border-color:#ded5c4; background:#fffdf9; color:#241636;" />
         </div>
 
         <div class="mb-5">
           <label class="block text-xs font-semibold mb-1.5" style="color:#4a4157;">Confirmer le mot de passe</label>
-          <input type="password" placeholder="Ressaisis ton mot de passe" 
+          <input type="password" placeholder="Ressaisis ton mot de passe"  name="password_confirmation"
             class="w-full h-10 rounded-[9px] border px-3 text-[13.5px]" style="border-color:#ded5c4; background:#fffdf9; color:#241636;" />
         </div>
 
