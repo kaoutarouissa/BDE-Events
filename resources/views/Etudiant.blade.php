@@ -73,9 +73,16 @@
     <section class="grid gap-5 mb-14" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
 
       <!-- Event 1 -->
+      {{-- {{ dd(session()->all()) }} --}}
       @foreach ($events as  $event)
+  
       
       <div class="bg-card border border-line rounded-2xl px-5 pt-[18px] pb-5 flex flex-col">
+        @if (session('error') && session('event_id') == $event->id)
+       <div class="text-red-500 text-danger mt-2 ">
+           {{ session('error') }}
+       </div>
+   @endif
         <div class="flex justify-between gap-3">
           <h3 class="font-sora font-bold text-cream text-[16.5px] mb-1 mt-0">{{ $event->title }}</h3>
           <div class="flex-shrink-0 h-[22px] px-2.5 rounded-full text-[11px] font-bold flex items-center bg-gold/15 text-gold">Ouvert</div>
@@ -105,6 +112,7 @@
         <div class="flex items-center justify-between mt-4">
           <span class="font-sora font-bold text-gold text-lg">{{ $event->prix }}</span>
           {{-- {{ dd($event->id) }} --}}
+        
           <form action="{{ route('reserver') }}" method="post">
             @csrf
             <input type="hidden" name="event_id" value="{{ $event->id }}">

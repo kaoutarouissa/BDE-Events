@@ -15,7 +15,12 @@ class EventController extends Controller
     public function index()
     {
         //
-          $events = Event::all();
+        //   $events = Event::all();
+        //  $reservationsCount = Reservation::count();
+        //  $nombre_place=$events->nombre_places;
+        //  dd($nombre_place);
+         $events=Event::withCount('reservation')->get();
+
 // dd($events);
     return view('bde', compact('events'));
     }
@@ -57,11 +62,13 @@ class EventController extends Controller
         //
         $events=Event::all();
         // dd($events);
+        
         $user = Auth::user();
-         $reservations = Reservation::join('events', 'events.id', '=', 'reservations.event_id')
+        $reservations = Reservation::join('events', 'events.id', '=', 'reservations.event_id')
         ->where('reservations.user_id', auth::id())
         ->select('events.title', 'events.heure')
         ->get();
+        // $reservationsCount = $reservations->count();
         return view('Etudiant',compact('events','user','reservations'));
     }
 

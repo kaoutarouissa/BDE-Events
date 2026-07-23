@@ -194,7 +194,7 @@
                 {{-- pour calculer les plases restant --}}
                <div class="flex justify-between items-center mt-3">
                <span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-semibold">
-                   {{ $event->nombre_places }} places restantes
+                   {{ $event->nombre_places - $event->reservation_count }} places restantes
                </span>
 
               <span class="px-3 py-1 rounded-full bg-gray-100 text-gray-600 text-xs font-medium">

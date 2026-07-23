@@ -26,19 +26,22 @@ class ReservationController extends Controller
     {
         //
         // dd($request->event_id);
-        $exists = Reservation::where('user_id', auth::id())
+        // $event=Event::all();
+        $exists = Reservation::where('user_id', Auth::id())
         ->where('event_id', $request->event_id)
         ->exists();
-
-    if ($exists) {
-        return back()->with('error', 'Vous avez déjà réservé cet événement.');
-    };
+// dd($exists);
+  if ($exists) {
+    return redirect()->back()->with([
+        'error' => 'Vous avez déjà réservé cet événement.',
+        'event_id' => $request->event_id,
+    ]);}
         $reservations=Reservation::create([
             'user_id'=>Auth::id(),
             'event_id'=> $request->event_id,
         ]);
         // dd($reservation);
-        return back()->with($reservations);
+        return back();
                 // return back()->with('message', 'Vous avez réservé cet événement avec succes.');
 
      
@@ -53,7 +56,7 @@ class ReservationController extends Controller
         // dd($request);
 
     }
-
+    
     /**
      * Display the specified resource.
      */
