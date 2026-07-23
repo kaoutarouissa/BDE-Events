@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\Reservation;
+use App\Models\Ticket;
 // use Illuminate\Container\Attributes\Auth;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Str;
 
 class ReservationController extends Controller
 {
@@ -22,31 +24,37 @@ class ReservationController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request)
-    {
-        //
-        // dd($request->event_id);
-        // $event=Event::all();
-        $exists = Reservation::where('user_id', Auth::id())
+   public function create(Request $request)
+{
+    $request->validate([
+        'event_id' => 'required|exists:events,id',
+    ]);
+
+    $exists = Reservation::where('user_id', Auth::id())
         ->where('event_id', $request->event_id)
         ->exists();
-// dd($exists);
-  if ($exists) {
-    return redirect()->back()->with([
-        'error' => 'Vous avez déjà réservé cet événement.',
-        'event_id' => $request->event_id,
-    ]);}
-        $reservations=Reservation::create([
-            'user_id'=>Auth::id(),
-            'event_id'=> $request->event_id,
-        ]);
-        
-        // dd($reservation);
-        return back();
-                // return back()->with('message', 'Vous avez réservé cet événement avec succes.');
 
-     
+    if ($exists) {
+        return back()->with([
+            'error' => 'Vous avez déjà réservé cet événement.',
+            'event_id' => $request->event_id,
+        ]);
     }
+
+    $reservation = Reservation::create([
+        'user_id'  => Auth::id(),
+        'event_id' => $request->event_id,
+    ]);
+
+    $code = 'RES-' . now()->format('His') . '-' . strtoupper(Str::random(3));
+
+    Ticket::create([
+        'code' => $code,
+        'reservation_id' => $reservation->id,
+    ]);
+
+    return back()->with('success', 'Réservation effectuée avec succès.');
+}
 
     /**
      * Store a newly created resource in storage.

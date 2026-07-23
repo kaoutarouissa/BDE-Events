@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Reservation;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
+use Str;
 
 class TicketController extends Controller
 {
@@ -18,9 +20,8 @@ class TicketController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($reservationId)
     {
-        //
     }
 
     /**
@@ -29,6 +30,9 @@ class TicketController extends Controller
     public function store(Request $request)
     {
         //
+
+
+        
     }
 
     /**

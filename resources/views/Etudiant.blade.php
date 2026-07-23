@@ -148,7 +148,7 @@
         <div class="barcode-dark h-[1px] my-3"></div>
         <div class="flex items-center justify-between">
           <span class="text-[10.5px] uppercase tracking-wider font-semibold" style="color:#6b6178;">Scan pour entrer</span>
-          <span class="font-mono text-[12px] font-semibold" style="color:#241636;">BDE-7K2Q1P</span>
+          <span class="font-mono text-[12px] font-semibold" style="color:#241636;"></span>
         </div>
       </div>
 
