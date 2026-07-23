@@ -13,6 +13,9 @@ class EventController extends Controller
     public function index()
     {
         //
+          $events = Event::all();
+// dd($events);
+    return view('bde', compact('events'));
     }
 
     /**
@@ -20,23 +23,7 @@ class EventController extends Controller
      */
     public function create(Request $request)
     {
-            // dd('Controller reached');*
-            // dd($request->all());
-
-        $validate=$request->validate([
-            'title'=>'required|string|max:255',
-            'description'=>'required|string',
-            'heure'=>'required|date_format:H:i',
-            'date'=>'required|date',
-            'lieu'=>'required|string|max:255',
-            'prix'=>'required|numeric|min:0',
-            'nombre_places'=>'required|integer|min:1',
-            ]);
-            $event=Event::create($validate);
-            // dd($event);
-            // dd($event);
-        return view('bde',compact('event'));
-
+           
     }
 
     /**
@@ -45,6 +32,19 @@ class EventController extends Controller
     public function store(Request $request)
     {
         //
+         $validate = $request->validate([
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'heure' => 'required|date_format:H:i',
+        'date' => 'required|date|after_or_equal:today',
+        'lieu' => 'required|string|max:255',
+        'prix' => 'required|numeric|min:0',
+        'nombre_places' => 'required|integer|min:1',
+    ]);
+
+    Event::create($validate);
+
+    return redirect()->route('bde-dashboard');
     }
 
     /**

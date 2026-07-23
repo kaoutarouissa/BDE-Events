@@ -11,8 +11,13 @@ route::get('/login',function(){ return view('login');})->name('login');
 Route::post('/login', [LoginController::class, 'index'])->name('login.post');
 Route::get('showRegister',[RegisterController::class,'showRegister'])->name('showRegister');
 Route::post('register',[RegisterController::class,'register'])->name('register');
-Route::get('/BDE_Dashboard',function(){return view('BDE');})->name('bde-dacshboard');
-Route::get('/Étudiant_Dashboard',function(){return view('Etudiant');})->name('Étudiant-dacshboard');
-Route::post('/event',[EventController::class,'create'])->name('create-event');
+Route::get('/BDE_Dashboard', [EventController::class, 'index'])->middleware('bde')
+    ->name('bde-dashboard');
 
+Route::get('/Étudiant_Dashboard',function(){return view('Etudiant');})->name('Étudiant-dashboard');
+Route::post('/event',[EventController::class,'store'])->middleware('bde')->name('store-event');
+Route::get('/bde', [EventController::class, 'index'])->name('bde');
+
+Route::get('/events/create', [EventController::class, 'create'])->middleware('admin')
+    ->name('events.create');
 

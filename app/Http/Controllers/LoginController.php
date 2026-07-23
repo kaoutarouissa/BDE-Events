@@ -18,11 +18,11 @@ class LoginController extends Controller
           $user=Auth::user();
 
         if ($user->role == 'bde') {
-            return redirect()->route('bde-dacshboard');
+            return redirect()->route('bde-dashboard');
         }
         
          if ($user->role == 'etudiant') {
-            return redirect()->route('Étudiant-dacshboard');
+            return redirect()->route('Étudiant-dashboard');
         }
         }
         
