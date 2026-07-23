@@ -14,10 +14,11 @@ Route::post('register',[RegisterController::class,'register'])->name('register')
 Route::get('/BDE_Dashboard', [EventController::class, 'index'])->middleware('bde')
     ->name('bde-dashboard');
 
-Route::get('/Étudiant_Dashboard',function(){return view('Etudiant');})->name('Étudiant-dashboard');
+// Route::get('/Etudiant_Dashboard',function(){return view('Etudiant');})->name('Etudiant-dashboard');
 Route::post('/event',[EventController::class,'store'])->middleware('bde')->name('store-event');
 Route::get('/bde', [EventController::class, 'index'])->name('bde');
 
 Route::get('/events/create', [EventController::class, 'create'])->middleware('admin')
     ->name('events.create');
 
+    Route::get('/Etudiant_Dashboard/events',[EventController::class,'show'])->name('etudiant-dashboard');

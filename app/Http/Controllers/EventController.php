@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
@@ -50,9 +51,12 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Event $event)
+    public function show(Event $events)
     {
         //
+        $events=Event::all();
+        $user = Auth::user();
+        return view('Etudiant',compact('events','user'));
     }
 
     /**

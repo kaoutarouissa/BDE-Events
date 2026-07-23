@@ -22,7 +22,7 @@ class LoginController extends Controller
         }
         
          if ($user->role == 'etudiant') {
-            return redirect()->route('Étudiant-dashboard');
+            return redirect()->route('etudiant-dashboard');
         }
         }
         

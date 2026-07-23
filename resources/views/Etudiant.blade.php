@@ -41,10 +41,10 @@
         <div class="flex items-center gap-2.5">
           <div class="w-8 h-8 rounded-full bg-gold/15 text-gold flex items-center justify-center font-sora font-bold text-[12px] flex-shrink-0">SB</div>
           <span class="text-cream text-[13px]">
-            <span class="text-muted">Bienvenue,</span> <span class="font-semibold">Sara Bouzidi</span>
+            <span class="text-muted">Bienvenue,</span> <span class="font-semibold">{{ auth()->user()->name }}</span>
           </span>
         </div>
-        <a href="#" class="flex items-center gap-2 px-4 py-2 rounded-[10px] border border-line text-cream text-[13px] font-medium">
+        <a href="{{ route('intro') }}" class="flex items-center gap-2 px-4 py-2 rounded-[10px] border border-line text-cream text-[13px] font-medium">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
           Déconnexion
         </a>
@@ -68,159 +68,51 @@
     <!-- Tabs -->
     <div class="inline-flex gap-1 p-1 rounded-[12px] bg-card border border-line mb-8">
       <span class="px-4 py-2 rounded-[9px] text-[13px] font-sora font-bold bg-gold" style="color:#241636;">Événements</span>
-      <span class="px-4 py-2 rounded-[9px] text-[13px] font-sora font-bold text-muted">Mes billets <span class="ml-1 opacity-70">(2)</span></span>
     </div>
 
     <!-- Events grid -->
     <section class="grid gap-5 mb-14" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
 
       <!-- Event 1 -->
+      @foreach ($events as  $event)
+      
       <div class="bg-card border border-line rounded-2xl px-5 pt-[18px] pb-5 flex flex-col">
         <div class="flex justify-between gap-3">
-          <h3 class="font-sora font-bold text-cream text-[16.5px] mb-1 mt-0">Soirée d'intégration ENAA</h3>
+          <h3 class="font-sora font-bold text-cream text-[16.5px] mb-1 mt-0">{{ $event->title }}</h3>
           <div class="flex-shrink-0 h-[22px] px-2.5 rounded-full text-[11px] font-bold flex items-center bg-gold/15 text-gold">Ouvert</div>
         </div>
-        <p class="text-muted text-[13px] leading-relaxed mb-3 mt-0">La soirée qui lance l'année. Dress code, DJ set et bonne humeur garantie.</p>
+        <p class="text-muted text-[13px] leading-relaxed mb-3 mt-0">{{ $event->description }}.</p>
         <div class="flex flex-wrap gap-x-4 gap-y-2">
           <span class="flex items-center gap-1.5 text-[12.5px] text-creamdim">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-            12 sept. 2026
+            {{ $event->date }}
           </span>
           <span class="flex items-center gap-1.5 text-[12.5px] text-creamdim">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-            21:00
+            {{ $event->heure }}
           </span>
           <span class="flex items-center gap-1.5 text-[12.5px] text-creamdim">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Le Hangar, Casablanca
+            {{ $event->lieu }}
           </span>
         </div>
         <div class="barcode h-[1px] my-4"></div>
         <div class="mb-1">
           <div class="flex justify-between text-[12.5px] mb-1.5">
             <span class="text-cream font-semibold">36 places restantes</span>
-            <span class="text-muted">214/250</span>
+            <span class="text-muted">Capacité : {{ $event->nombre_places }}</span>
           </div>
           <div class="h-1.5 rounded-full bg-white/[0.08] overflow-hidden">
             <div class="h-full rounded-full" style="width:86%; background:#f5a623;"></div>
           </div>
         </div>
         <div class="flex items-center justify-between mt-4">
-          <span class="font-sora font-bold text-gold text-lg">80 MAD</span>
+          <span class="font-sora font-bold text-gold text-lg">{{ $event->prix }}</span>
           <button class="h-9 px-4 rounded-[9px] font-sora font-bold text-[13px] bg-gold" style="color:#241636;">Réserver ma place</button>
         </div>
       </div>
+      @endforeach
 
-      <!-- Event 2 -->
-      <div class="bg-card border border-line rounded-2xl px-5 pt-[18px] pb-5 flex flex-col">
-        <div class="flex justify-between gap-3">
-          <h3 class="font-sora font-bold text-cream text-[16.5px] mb-1 mt-0">Workshop UX/UI avec Figma</h3>
-          <div class="flex-shrink-0 h-[22px] px-2.5 rounded-full text-[11px] font-bold flex items-center bg-white/5 text-muted">Réservé</div>
-        </div>
-        <p class="text-muted text-[13px] leading-relaxed mb-3 mt-0">Atelier pratique animé par un designer senior, places limitées.</p>
-        <div class="flex flex-wrap gap-x-4 gap-y-2">
-          <span class="flex items-center gap-1.5 text-[12.5px] text-creamdim">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-            20 sept. 2026
-          </span>
-          <span class="flex items-center gap-1.5 text-[12.5px] text-creamdim">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-            14:30
-          </span>
-          <span class="flex items-center gap-1.5 text-[12.5px] text-creamdim">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Amphi B, ENAA
-          </span>
-        </div>
-        <div class="barcode h-[1px] my-4"></div>
-        <div class="mb-1">
-          <div class="flex justify-between text-[12.5px] mb-1.5">
-            <span class="text-cream font-semibold">3 places restantes</span>
-            <span class="text-muted">37/40</span>
-          </div>
-          <div class="h-1.5 rounded-full bg-white/[0.08] overflow-hidden">
-            <div class="h-full rounded-full" style="width:93%; background:#f5a623;"></div>
-          </div>
-        </div>
-        <div class="flex items-center justify-between mt-4">
-          <span class="font-sora font-bold text-gold text-lg">Gratuit</span>
-          <button class="h-9 px-4 rounded-[9px] font-sora font-bold text-[13px] bg-white/5 text-muted" disabled>Réservé</button>
-        </div>
-      </div>
-
-      <!-- Event 3 -->
-      <div class="bg-card border border-line rounded-2xl px-5 pt-[18px] pb-5 flex flex-col">
-        <div class="flex justify-between gap-3">
-          <h3 class="font-sora font-bold text-cream text-[16.5px] mb-1 mt-0">Tournoi FIFA inter-promos</h3>
-          <div class="flex-shrink-0 h-[22px] px-2.5 rounded-full text-[11px] font-bold flex items-center bg-pink/15 text-pink">Complet</div>
-        </div>
-        <p class="text-muted text-[13px] leading-relaxed mb-3 mt-0">Bracket à élimination directe. Récompenses pour le trio gagnant.</p>
-        <div class="flex flex-wrap gap-x-4 gap-y-2">
-          <span class="flex items-center gap-1.5 text-[12.5px] text-creamdim">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-            3 oct. 2026
-          </span>
-          <span class="flex items-center gap-1.5 text-[12.5px] text-creamdim">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-            18:00
-          </span>
-          <span class="flex items-center gap-1.5 text-[12.5px] text-creamdim">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Foyer étudiant, ENAA
-          </span>
-        </div>
-        <div class="barcode h-[1px] my-4"></div>
-        <div class="mb-1">
-          <div class="flex justify-between text-[12.5px] mb-1.5">
-            <span class="text-cream font-semibold">0 place restante</span>
-            <span class="text-muted">64/64</span>
-          </div>
-          <div class="h-1.5 rounded-full bg-white/[0.08] overflow-hidden">
-            <div class="h-full rounded-full" style="width:100%; background:#ec4c82;"></div>
-          </div>
-        </div>
-        <div class="flex items-center justify-between mt-4">
-          <span class="font-sora font-bold text-gold text-lg">20 MAD</span>
-          <button class="h-9 px-4 rounded-[9px] font-sora font-bold text-[13px] bg-white/5 text-muted" disabled>Complet</button>
-        </div>
-      </div>
-
-      <!-- Event 4 -->
-      <div class="bg-card border border-line rounded-2xl px-5 pt-[18px] pb-5 flex flex-col">
-        <div class="flex justify-between gap-3">
-          <h3 class="font-sora font-bold text-cream text-[16.5px] mb-1 mt-0">Gala de fin d'année</h3>
-          <div class="flex-shrink-0 h-[22px] px-2.5 rounded-full text-[11px] font-bold flex items-center bg-gold/15 text-gold">Ouvert</div>
-        </div>
-        <p class="text-muted text-[13px] leading-relaxed mb-3 mt-0">La grande soirée de clôture : tenue de gala, remise des prix et dîner assis.</p>
-        <div class="flex flex-wrap gap-x-4 gap-y-2">
-          <span class="flex items-center gap-1.5 text-[12.5px] text-creamdim">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-            18 juin 2026
-          </span>
-          <span class="flex items-center gap-1.5 text-[12.5px] text-creamdim">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-            20:00
-          </span>
-          <span class="flex items-center gap-1.5 text-[12.5px] text-creamdim">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Palais des congrès, Marrakech
-          </span>
-        </div>
-        <div class="barcode h-[1px] my-4"></div>
-        <div class="mb-1">
-          <div class="flex justify-between text-[12.5px] mb-1.5">
-            <span class="text-cream font-semibold">88 places restantes</span>
-            <span class="text-muted">92/180</span>
-          </div>
-          <div class="h-1.5 rounded-full bg-white/[0.08] overflow-hidden">
-            <div class="h-full rounded-full" style="width:51%; background:#f5a623;"></div>
-          </div>
-        </div>
-        <div class="flex items-center justify-between mt-4">
-          <span class="font-sora font-bold text-gold text-lg">350 MAD</span>
-          <button class="h-9 px-4 rounded-[9px] font-sora font-bold text-[13px] bg-gold" style="color:#241636;">Réserver ma place</button>
-        </div>
-      </div>
     </section>
 
     <!-- Mes billets -->
