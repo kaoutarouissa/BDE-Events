@@ -40,6 +40,7 @@ class ReservationController extends Controller
             'user_id'=>Auth::id(),
             'event_id'=> $request->event_id,
         ]);
+        
         // dd($reservation);
         return back();
                 // return back()->with('message', 'Vous avez réservé cet événement avec succes.');

@@ -168,7 +168,15 @@
                 <h3 class="font-sora font-bold text-cream text-[16.5px] mb-1 mt-0">{{ $event->title }}</h3>
                 <p class="text-muted text-[13px] leading-relaxed m-0">{{ $event->description }}.</p>
               </div>
-              {{-- <div class="flex-shrink-0 h-[22px] px-2.5 rounded-full text-[11px] font-bold flex items-center bg-gold/15 text-gold">Ouvert</div> --}}
+           @if (($event->nombre_places - $event->reservation_count) > 0)
+           <div class="flex-shrink-0 h-[22px] px-2.5 rounded-full text-[11px] font-bold flex items-center bg-gold/15 text-gold">
+               Ouvert
+          </div>
+          @else
+    <div class="flex-shrink-0 h-[22px] px-2.5 rounded-full text-[11px] font-bold flex items-center bg-red-600/15 text-red-600">
+        Complet
+    </div>
+           @endif
             </div>
             <div class="flex flex-wrap gap-x-4 gap-y-2 mt-3">
               <span class="flex items-center gap-1.5 text-[12.5px] text-creamdim">

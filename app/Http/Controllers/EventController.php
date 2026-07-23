@@ -60,7 +60,9 @@ class EventController extends Controller
     public function show(Event $events)
     {
         //
-        $events=Event::all();
+        // $events=Event::all();
+            $events = Event::withCount('reservation')->get();
+
         // dd($events);
         
         $user = Auth::user();

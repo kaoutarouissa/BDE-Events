@@ -76,7 +76,7 @@
       {{-- {{ dd(session()->all()) }} --}}
       @foreach ($events as  $event)
   
-      
+      {{-- {{ dd($event) }} --}}
       <div class="bg-card border border-line rounded-2xl px-5 pt-[18px] pb-5 flex flex-col">
         @if (session('error') && session('event_id') == $event->id)
        <div class="text-red-500 text-danger mt-2 ">
@@ -85,8 +85,15 @@
    @endif
         <div class="flex justify-between gap-3">
           <h3 class="font-sora font-bold text-cream text-[16.5px] mb-1 mt-0">{{ $event->title }}</h3>
-          <div class="flex-shrink-0 h-[22px] px-2.5 rounded-full text-[11px] font-bold flex items-center bg-gold/15 text-gold">Ouvert</div>
-        </div>
+ @if (($event->nombre_places - $event->reservation_count) > 0)
+           <div class="flex-shrink-0 h-[22px] px-2.5 rounded-full text-[11px] font-bold flex items-center bg-gold/15 text-gold">
+               Ouvert
+          </div>
+          @else
+    <div class="flex-shrink-0 h-[22px] px-2.5 rounded-full text-[11px] font-bold flex items-center bg-red-600/15 text-red-600">
+        Complet
+    </div>
+           @endif       </div>
         <p class="text-muted text-[13px] leading-relaxed mb-3 mt-0">{{ $event->description }}.</p>
         <div class="flex flex-wrap gap-x-4 gap-y-2">
           <span class="flex items-center gap-1.5 text-[12.5px] text-creamdim">
@@ -105,7 +112,7 @@
         <div class="barcode h-[1px] my-4"></div>
         <div class="mb-1">
           <div class="flex justify-between text-[12.5px] mb-1.5">
-            <span class="text-cream font-semibold">36 places restantes</span>
+            <span class="text-cream font-semibold">{{ $event->nombre_places - $event->reservation_count }} places restantes</span>
             <span class="text-muted">Capacité : {{ $event->nombre_places }}</span>
           </div>
         </div>
