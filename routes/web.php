@@ -26,4 +26,4 @@ Route::get('/events/create', [EventController::class, 'create'])->middleware('ad
 
 
 Route::post('/reserver',[ReservationController::class,'create'])->name('reserver');
-Route::get('/showReservation',[ReservationController::class,'show'])->name('showRservation');
+// Route::get('/showReservation',[ReservationController::class,'show'])->name('showRservation');

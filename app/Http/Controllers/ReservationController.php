@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\Reservation;
 // use Illuminate\Container\Attributes\Auth;
 use Illuminate\Support\Facades\Auth;
@@ -56,15 +57,19 @@ class ReservationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Reservation $reservation)
-    {
-        //
-        $reservation=Reservation::join('events','events.id','=','reservations.event_id')    ->where('reservations.user_id', auth::id())
-        ->select('events.title','events.heure')->get();
-        // dd($reservation);
-        // retrun view('etudiant',compact('reservation'));
-        return view('etudiant',compact('reservation'));
-    }
+    // public function show(Reservation $reservation)
+    // {
+    //     //
+    //         // dd('ReservationController');
+    //         $events=Event::all();
+
+    //     // dd('show');
+    //     $reservations=Reservation::join('events','events.id','=','reservations.event_id')    ->where('reservations.user_id', auth::id())
+    //     ->select('events.title','events.heure')->get();
+    //     // dd($reservation);
+    //     // retrun view('etudiant',compact('reservation'));
+    //     return view('etudiant',compact('reservations','events'));
+    // }
 
     /**
      * Show the form for editing the specified resource.

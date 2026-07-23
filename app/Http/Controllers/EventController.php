@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -57,7 +58,11 @@ class EventController extends Controller
         $events=Event::all();
         // dd($events);
         $user = Auth::user();
-        return view('Etudiant',compact('events','user'));
+         $reservations = Reservation::join('events', 'events.id', '=', 'reservations.event_id')
+        ->where('reservations.user_id', auth::id())
+        ->select('events.title', 'events.heure')
+        ->get();
+        return view('Etudiant',compact('events','user','reservations'));
     }
 
     /**

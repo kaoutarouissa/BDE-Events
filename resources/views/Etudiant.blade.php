@@ -128,8 +128,8 @@
           <p class="text-pink font-bold text-[10.5px] tracking-wider m-0">ACCÈS RAPIDE</p>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ec4c82" stroke-width="2"><path d="M2 9a3 3 0 1 0 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 1 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/></svg>
         </div>
-        <h3 class="font-sora font-extrabold text-[17px] mb-1 mt-0" style="color:#241636;">{{ $reservation->event->title }}</h3>
-        <p class="text-[12.5px] mb-3 mt-0" style="color:#6b6178;">{{ $reservation->event->date }} · {{ $reservation->event->heure }} · {{ $reservation->event->lieu }}</p>
+        <h3 class="font-sora font-extrabold text-[17px] mb-1 mt-0" style="color:#241636;">{{ $reservation->title }}</h3>
+        <p class="text-[12.5px] mb-3 mt-0" style="color:#6b6178;">{{ $reservation->date }} · {{ $reservation->heure }} · {{ $reservation->lieu }}</p>
         <div class="barcode-dark h-[1px] my-3"></div>
         <div class="flex items-center justify-between">
           <span class="text-[10.5px] uppercase tracking-wider font-semibold" style="color:#6b6178;">Scan pour entrer</span>
@@ -137,7 +137,7 @@
         </div>
       </div>
 
-             {{-- @endforeach --}}
+             @endforeach
 
     </section>
   </main>
