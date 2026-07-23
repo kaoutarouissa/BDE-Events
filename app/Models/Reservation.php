@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Reservation extends Model
 {
     //
+    protected $fillable = [
+        'user_id',
+        'event_id'
+    ];
     public function userReservation(){
         return $this->belongsTo(User::class);
     }

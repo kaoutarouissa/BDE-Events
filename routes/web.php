@@ -22,3 +22,8 @@ Route::get('/events/create', [EventController::class, 'create'])->middleware('ad
     ->name('events.create');
 
     Route::get('/Etudiant_Dashboard/events',[EventController::class,'show'])->name('etudiant-dashboard');
+
+
+
+Route::post('/reserver',[ReservationController::class,'create'])->name('reserver');
+Route::get('/showReservation',[ReservationController::class,'show'])->name('showRservation');

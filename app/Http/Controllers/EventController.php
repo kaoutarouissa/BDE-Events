@@ -55,6 +55,7 @@ class EventController extends Controller
     {
         //
         $events=Event::all();
+        // dd($events);
         $user = Auth::user();
         return view('Etudiant',compact('events','user'));
     }
