@@ -42,12 +42,12 @@ BDE-Events est une application web développée avec Laravel permettant de gére
 ![Diagramme ERD](./uml/ERD.png)
 
 
-## 📂 Installation
+##  Installation
 
 ### 1. Cloner le projet
 
 ```bash
-git clone https://github.com/votre-utilisateur/BDE-Events.git
+git clone https://github.com/kaoutarouissa/BDE-Events.git
 ```
 
 ### 2. Accéder au dossier
