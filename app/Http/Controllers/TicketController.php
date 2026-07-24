@@ -13,9 +13,16 @@ class TicketController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
+    {}
         //
-    }
+
+//     $reservations = Reservation::with(['ticket', 'event'])
+//         ->where('user_id', Auth::id())
+//         ->get();
+
+//     return view('etudiant', compact('reservations'));
+// }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -40,7 +47,9 @@ class TicketController extends Controller
      */
     public function show(Ticket $ticket)
     {
-        //
+    //     //
+    
+
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\Reservation;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,14 +16,8 @@ class EventController extends Controller
     public function index()
     {
         //
-        //   $events = Event::all();
-        //  $reservationsCount = Reservation::count();
-        //  $nombre_place=$events->nombre_places;
-        //  dd($nombre_place);
-         $events=Event::withCount('reservation')->get();
-
-// dd($events);
-    return view('bde', compact('events'));
+        $events = Event::withCount('reservation')->get();
+        return view('bde', compact('events'));
     }
 
     /**
@@ -30,7 +25,7 @@ class EventController extends Controller
      */
     public function create(Request $request)
     {
-           
+
     }
 
     /**
@@ -39,19 +34,19 @@ class EventController extends Controller
     public function store(Request $request)
     {
         //
-         $validate = $request->validate([
-        'title' => 'required|string|max:255',
-        'description' => 'required|string',
-        'heure' => 'required|date_format:H:i',
-        'date' => 'required|date|after_or_equal:today',
-        'lieu' => 'required|string|max:255',
-        'prix' => 'required|numeric|min:0',
-        'nombre_places' => 'required|integer|min:1',
-    ]);
+        $validate = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'heure' => 'required|date_format:H:i',
+            'date' => 'required|date|after_or_equal:today',
+            'lieu' => 'required|string|max:255',
+            'prix' => 'required|numeric|min:0',
+            'nombre_places' => 'required|integer|min:1',
+        ]);
 
-    Event::create($validate);
+        Event::create($validate);
 
-    return redirect()->route('bde-dashboard');
+        return redirect()->route('bde-dashboard');
     }
 
     /**
@@ -60,18 +55,21 @@ class EventController extends Controller
     public function show(Event $events)
     {
         //
-        // $events=Event::all();
-            $events = Event::withCount('reservation')->get();
-
-        // dd($events);
-        
+        $events = Event::withCount('reservation')->get();
         $user = Auth::user();
-        $reservations = Reservation::join('events', 'events.id', '=', 'reservations.event_id')
-        ->where('reservations.user_id', auth::id())
-        ->select('events.title', 'events.heure')
-        ->get();
-        // $reservationsCount = $reservations->count();
-        return view('Etudiant',compact('events','user','reservations'));
+
+        $reservationSInfo = Ticket::join('reservations', 'tickets.reservation_id', '=', 'reservations.id')
+            ->join('events', 'reservations.event_id', '=', 'events.id')
+            ->where('reservations.user_id', Auth::id())
+            ->select(
+                'tickets.code',
+                'events.title as event_title',
+                'events.date as event_date',
+                'events.heure as event_heure',
+                'events.lieu as event_lieu'
+            )
+            ->get();
+        return view('Etudiant', compact('events', 'user', 'reservationSInfo'));
     }
 
     /**

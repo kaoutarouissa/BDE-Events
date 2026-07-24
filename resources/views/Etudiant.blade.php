@@ -73,10 +73,8 @@
     <section class="grid gap-5 mb-14" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
 
       <!-- Event 1 -->
-      {{-- {{ dd(session()->all()) }} --}}
       @foreach ($events as  $event)
   
-      {{-- {{ dd($event) }} --}}
       <div class="bg-card border border-line rounded-2xl px-5 pt-[18px] pb-5 flex flex-col">
         @if (session('error') && session('event_id') == $event->id)
        <div class="text-red-500 text-danger mt-2 ">
@@ -118,7 +116,6 @@
         </div>
         <div class="flex items-center justify-between mt-4">
           <span class="font-sora font-bold text-gold text-lg">{{ $event->prix }}</span>
-          {{-- {{ dd($event->id) }} --}}
         
           <form action="{{ route('reserver') }}" method="post">
             @csrf
@@ -136,19 +133,20 @@
     <!-- Mes billets -->
     <h2 class="font-sora font-bold text-cream text-xl mb-4">Mes billets</h2>
     <section class="grid gap-5" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
-        @foreach ( $reservations as $reservation )
+        @foreach ( $reservationSInfo as $ticket )
         
       <div class="bg-cream rounded-[16px] px-5 pt-4 pb-4 relative overflow-hidden">
         <div class="flex items-center justify-between mb-2">
           <p class="text-pink font-bold text-[10.5px] tracking-wider m-0">ACCÈS RAPIDE</p>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ec4c82" stroke-width="2"><path d="M2 9a3 3 0 1 0 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 1 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/></svg>
         </div>
-        <h3 class="font-sora font-extrabold text-[17px] mb-1 mt-0" style="color:#241636;">{{ $reservation->title }}</h3>
-        <p class="text-[12.5px] mb-3 mt-0" style="color:#6b6178;">{{ $reservation->date }} · {{ $reservation->heure }} · {{ $reservation->lieu }}</p>
+        <h3 class="font-sora font-extrabold text-[17px] mb-1 mt-0" style="color:#241636;">{{ $ticket->event_title }}</h3>
+        <p class="text-[12.5px] mb-3 mt-0" style="color:#6b6178;">{{ $ticket->event_date }} · {{ $ticket->event_heure }} · {{ $ticket->event_lieu }}</p>
         <div class="barcode-dark h-[1px] my-3"></div>
-        <div class="flex items-center justify-between">
+        
+       <div class="flex items-center justify-between">
           <span class="text-[10.5px] uppercase tracking-wider font-semibold" style="color:#6b6178;">Scan pour entrer</span>
-          <span class="font-mono text-[12px] font-semibold" style="color:#241636;"></span>
+          <span class="font-mono text-[12px] font-semibold" style="color:#241636;">{{$ticket->code  }}</span> 
         </div>
       </div>
 
