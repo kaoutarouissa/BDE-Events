@@ -43,10 +43,12 @@
             <span class="text-muted">Bienvenue,</span> <span class="font-semibold">{{ Auth::user()->name }}</span>
           </span>
         </div>
-        <a href="{{ route('intro') }}" class="flex items-center gap-2 px-4 py-2 rounded-[10px] border border-line text-cream text-[13px] font-medium">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
-          Déconnexion
-        </a>
+       <form action="{{ route('logout') }}" method="POST">
+    @csrf
+    <button type="submit" class="flex items-center gap-2 px-4 py-2 rounded-[10px] border border-line text-cream text-[13px] font-medium">
+        Déconnexion
+    </button>
+</form>
       </div>
     </div>
   </header>
