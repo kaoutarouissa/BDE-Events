@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+/* Minimal reset to avoid layout shifts and ensure consistent sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  scrollbar-gutter: stable;
+}
+
 :root {
   --ink: #1B1035;
   --ink-2: #2A1854;

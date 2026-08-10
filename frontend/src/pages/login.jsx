@@ -247,7 +247,6 @@ function Login() {
                             <p className="text-[var(--ink)]/60">
                                 Pas encore de compte ?
                             </p>
-
                             <Link
                                 to="/register"
                                 className="font-semibold text-[var(--ink)] hover:text-violet-600 transition whitespace-nowrap"
