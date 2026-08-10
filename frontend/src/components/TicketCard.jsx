@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function TicketCard() {
     return (
         <div className="relative flex justify-center lg:justify-end">
@@ -22,10 +24,11 @@ function TicketCard() {
                     </div>
                 </div>
 
-                <a href="/login"
-                   className="mt-7 flex items-center justify-center gap-2 w-full py-4 rounded-2xl bg-[var(--ink)] text-white font-semibold display hover:bg-[var(--ink-2)] transition-colors">
+                <Link
+                    to="/login"
+                    className="mt-7 flex items-center justify-center gap-2 w-full py-4 rounded-2xl bg-[var(--ink)] text-white font-semibold display hover:bg-[var(--ink-2)] transition-colors">
                     Se connecter
-                </a>
+                </Link>
             </div>
         </div>
     );
