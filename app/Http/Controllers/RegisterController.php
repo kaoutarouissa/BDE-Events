@@ -18,8 +18,12 @@ class RegisterController extends Controller
         ]);
         $validation['password'] = Hash::make($validation['password']);
 
-        User::create($validation);
-        return redirect()->route('login');
+        $user=User::create($validation);
+        // return redirect()->route('login');
+        return response()->json([
+            'message'=>'Compte créé avec succes',
+            'user'=>$user,
+        ],201);
 
 
     }
