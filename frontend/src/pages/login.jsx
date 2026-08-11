@@ -1,6 +1,42 @@
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { loginUser } from "../services/api";
 function Login() {
+ const navigate = useNavigate();
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+
+        setError("");
+
+        try {
+            const data = await loginUser(email, password);
+
+            console.log("Réponse Laravel :", data);
+
+            // Sauvegarder le token
+            localStorage.setItem("token", data.token);
+
+            // Sauvegarder l'utilisateur
+            localStorage.setItem("user", JSON.stringify(data.user));
+
+            // Redirection selon le rôle
+            if (data.user.role === "bde") {
+                navigate("/bde-dashboard");
+            } else if (data.user.role === "etudiant") {
+                navigate("/etudiant-dashboard");
+            }
+
+        } catch (error) {
+            console.log(error);
+            setError(error.message);
+        }
+    }
     return (
         <div className="relative min-h-screen overflow-hidden bg-[var(--ink)]">
 
@@ -155,7 +191,7 @@ function Login() {
 
 
                         {/* Login form */}
-                        <form className="mt-6 space-y-4 md:space-y-5">
+                        <form onSubmit={handleLogin} className="mt-6 space-y-4 md:space-y-5">
 
                             {/* Email */}
                             <div>
@@ -169,6 +205,8 @@ function Login() {
                                     <input
                                         type="email"
                                         name="email"
+                                         value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
                                         className="w-full bg-transparent outline-none text-sm md:text-base"
                                         placeholder="prenom.nom@ensa.ac.ma"
                                     />
@@ -190,6 +228,8 @@ function Login() {
                                     <input
                                         type="password"
                                         name="password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
                                         className="w-full bg-transparent outline-none text-sm md:text-base"
                                         placeholder="••••••••"
                                     />
