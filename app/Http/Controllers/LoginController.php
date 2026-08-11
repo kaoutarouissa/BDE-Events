@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
     //
-    public function index(Request $request){
+    public function login(Request $request){
     $validate=$request->validate([
         'email'=>'required|email',
         'password'=>'required'
@@ -25,9 +25,14 @@ class LoginController extends Controller
             return redirect()->route('etudiant-dashboard');
         }
         }
-        
-     return back()->withErrors([
-        'email' => 'Email ou mot de passe incorrect.',
-    ]);
+                  $user=Auth::user();
+
+            $token = $user->createToken('auth_token')->plainTextToken;
+
+      return response()->json([
+        'message' => 'Connexion réussie',
+        'user' => $user,
+        'token' => $token
+    ], 200);
     }
 }

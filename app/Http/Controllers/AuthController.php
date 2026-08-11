@@ -7,15 +7,36 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    //
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if (!Auth::attempt($credentials)) {
+            return response()->json([
+                'message' => 'Email ou mot de passe incorrect'
+            ], 401);
+        }
+
+        $user = Auth::user();
+
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json([
+            'message' => 'Connexion réussie',
+            'token' => $token,
+            'user' => $user
+        ], 200);
+    }
+
     public function logout(Request $request)
-{
-    Auth::logout();
+    {
+        $request->user()->currentAccessToken()->delete();
 
-    $request->session()->invalidate();
-
-    $request->session()->regenerateToken();
-
-    return redirect()->route('intro');
-}
+        return response()->json([
+            'message' => 'Déconnexion réussie'
+        ], 200);
+    }
 }
