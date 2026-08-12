@@ -26,4 +26,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/reservations', [ReservationController::class, 'store']);
 
+
+
 });

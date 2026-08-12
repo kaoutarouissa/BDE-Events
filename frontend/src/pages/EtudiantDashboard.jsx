@@ -403,7 +403,7 @@ setEvents(eventsData);
                                     className="font-mono text-[12px] font-semibold"
                                     style={{ color: "#241636" }}
                                 >
-                                    {ticket.code}
+                                    {ticket.ticket?.code}
                                 </span>
 
                             </div>
