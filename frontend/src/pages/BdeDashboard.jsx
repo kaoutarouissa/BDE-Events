@@ -4,7 +4,6 @@ import { createEvent, showEvent,logoutUser } from "../services/api";
 function BdeDashboard() {
 
     const navigate = useNavigate();
-
     const user = JSON.parse(localStorage.getItem("user"));
 
     console.log("USER :", user);
@@ -14,6 +13,7 @@ function BdeDashboard() {
     // FORM DATA
     // ===============================
 
+    const [events, setEvents] = useState([]);
     const [formData, setFormData] = useState({
         title: "",
         description: "",
@@ -25,7 +25,7 @@ function BdeDashboard() {
     });
 
     const [message, setMessage] = useState("");
-
+   
     // ===============================
     // HANDLE CHANGE
     // ===============================
@@ -112,22 +112,21 @@ setEvents(updatedEvents);
         }
     };
 
-const [events, setEvents] = useState([]);
-useEffect(() => {
-    const loadEvents = async () => {
-        try {
-            const data = await showEvent();
+    useEffect(() => {
+        const loadEvents = async () => {
+            try {
+                const data = await showEvent();
 
-            console.log(data);
+                console.log(data);
 
-            setEvents(data);
-        } catch (error) {
-            console.error(error);
-        }
-    };
+                setEvents(data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
 
-    loadEvents();
-}, []);
+        loadEvents();
+    }, []);
     // ===============================
     // LOGOUT
     // ===============================

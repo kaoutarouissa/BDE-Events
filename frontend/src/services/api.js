@@ -84,7 +84,7 @@ export const showEvent = async(eventData) =>{
     return data;
 }
 
-export const getReservations=async(eventData) =>{
+export const getReservations=async() =>{
         const token = localStorage.getItem("token");
 
     const response=await fetch(`${API_URL}/reservations`,{
@@ -95,6 +95,27 @@ export const getReservations=async(eventData) =>{
         }
     })
       const data = await response.json();
+    if(!response.ok){
+        throw{
+            status : response.status,
+            data: data,
+        }
+    }
+    return data;
+}
+
+export const createReservation=async(reservation)=>{
+    const token = localStorage.getItem("token");
+     const response=await fetch(`${API_URL}/reservations`,{
+        method : "POST",
+        headers:{
+            "accept":"application/json",
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify(reservation)
+    })
+     const data = await response.json();
     if(!response.ok){
         throw{
             status : response.status,

@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
-import { showEvent,getReservations } from "../services/api";
+import { showEvent,getReservations,createReservation } from "../services/api";
 
 function EtudiantDashboard() {
 
     const [events, setEvents] = useState([]);
     const [reservations, setReservations] = useState([]);
-    // const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-
+    const [reservation, setReservation] = useState({
+        user_id: "",
+        event_id: ""
+    });
+    const [reservationMessage, setReservationMessage] = useState({});
     const user = JSON.parse(localStorage.getItem("user"));
 
     useEffect(() => {
@@ -40,7 +43,37 @@ function EtudiantDashboard() {
 
     }, []);
 
+    const handleReservation = async (eventId) => {
 
+    const data = {
+    
+        event_id: eventId
+    };
+
+    try {
+        const result = await createReservation(data);
+        const eventsData = await showEvent();
+setEvents(eventsData);
+         setReservationMessage({
+            [eventId]: result.message
+        });
+        console.log("Réservation créée :", result);
+
+        // Recharger les billets
+        const reservationsData = await getReservations();
+
+        setReservations(reservationsData.reservations);
+
+    } catch (error) {
+      if (error.status === 409) {
+            setReservationMessage({
+                [eventId]: error.data.message
+            });
+        } else {
+            setReservationMessage({
+                [eventId]: "Une erreur est survenue."
+            });    }
+};
     if (loading) {
         return (
             <div className="min-h-screen flex items-center justify-center text-white">
@@ -49,7 +82,7 @@ function EtudiantDashboard() {
         );
     }
 
-
+    }
     return (
         <div className="min-h-screen bg-[#120a20] text-white">
 
@@ -249,7 +282,7 @@ function EtudiantDashboard() {
                                     <div className="flex justify-between text-[12.5px] mb-1.5">
 
                                         <span className="text-white font-semibold">
-                                            {placesRestantes} places restantes
+                                            {event.nombre_places - event.reservation_count} places restantes
                                         </span>
 
                                         <span className="text-white/40">
@@ -269,7 +302,11 @@ function EtudiantDashboard() {
                                         {event.prix} MAD
                                     </span>
 
-
+                                {reservationMessage[event.id] && (
+                <p className="text-red-500 text-sm font-medium mt-2">
+                    {reservationMessage[event.id]}
+                </p>
+            )}
                                     {placesRestantes > 0 ? (
 
                                         <button
@@ -279,6 +316,7 @@ function EtudiantDashboard() {
                                         >
                                             Réserver ma place
                                         </button>
+                                        
 
                                     ) : (
 
@@ -290,7 +328,7 @@ function EtudiantDashboard() {
                                         </button>
 
                                     )}
-
+                          
                                 </div>
 
                             </div>
@@ -335,7 +373,7 @@ function EtudiantDashboard() {
                                 className="font-extrabold text-[17px] mb-1"
                                 style={{ color: "#241636" }}
                             >
-                                {ticket.event_title}
+                                {ticket.event?.title}·{" "}
                             </h3>
 
 
@@ -343,9 +381,9 @@ function EtudiantDashboard() {
                                 className="text-[12.5px] mb-3"
                                 style={{ color: "#6b6178" }}
                             >
-                                {ticket.event_date} ·{" "}
-                                {ticket.event_heure} ·{" "}
-                                {ticket.event_lieu}
+                                {ticket.event.data} ·{" "}
+                                {ticket.event.heure} ·{" "}
+                                {ticket.event.lieu}
                             </p>
 
 

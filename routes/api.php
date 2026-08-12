@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ReservationController;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -19,4 +20,10 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::post('/events', [EventController::class, 'store'])
     ->middleware(['auth:sanctum', 'bde']);
 Route::get('/events', [EventController::class, 'index']);
-Route::get('/reservations', [EventController::class, 'show']);
+Route::middleware('auth:sanctum')->group(function () {
+
+    Route::get('/reservations', [ReservationController::class, 'index']);
+
+    Route::post('/reservations', [ReservationController::class, 'store']);
+
+});
