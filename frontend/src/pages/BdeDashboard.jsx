@@ -42,7 +42,7 @@ function BdeDashboard() {
     // ===============================
     // HANDLE SUBMIT
     // ===============================
-
+// const [events, setEvents] = useState([]);
     const handleSubmit = async (e) => {
 
         e.preventDefault();
@@ -52,7 +52,8 @@ function BdeDashboard() {
         try {
 
             const data = await createEvent(formData);
-
+const updatedEvents = await showEvent();
+setEvents(updatedEvents);
             console.log("EVENT CREATED :", data);
 
             setMessage("✅ " + data.message);
@@ -536,138 +537,138 @@ useEffect(() => {
 
 
                     {/* ================= EVENTS ================= */}
+                      <section className="rounded-2xl border border-white/10 bg-[#1d1230] p-5 transition hover:border-white/20 hover:bg-[#211536] sm:p-6">
 
-                    <section className="min-w-0">
+    {/* HEADER DU DASHBOARD — une seule fois */}
+    <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
 
-                        <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+            <h2 className="text-xl font-bold text-white sm:text-2xl">
+                Tableau de bord
+            </h2>
 
-                            <div>
-
-                                <h2 className="text-xl font-bold text-white sm:text-2xl">
-                                    Tableau de bord
-                                </h2>
-
-                                <p className="mt-1 text-sm text-white/40">
-                                    Gestion de tes événements
-                                </p>
-
-                            </div>
-
-                            <div className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/60">
-                                3 événements
-                            </div>
-
-                        </div>
-
-
-                        {/* CARD 1 */}
-
-                       {events.map((event) => (
-    <article
-        key={event.id}
-        className="rounded-2xl border border-white/10 bg-[#1d1230] p-5 transition hover:border-white/20 hover:bg-[#211536] sm:p-6"
-    >
-
-        {/* HEADER */}
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-
-            <div>
-
-                <h3 className="text-lg font-bold text-white">
-                    {event.title}
-                </h3>
-
-                <p className="mt-2 text-sm leading-6 text-white/45">
-                    {event.description}
-                </p>
-
-            </div>
-
-            <span className="w-fit rounded-full bg-[#f5c84c]/15 px-3 py-1 text-xs font-bold text-[#f5c84c]">
-                Ouvert
-            </span>
-
+            <p className="mt-1 text-sm text-white/40">
+                Gestion de tes événements
+            </p>
         </div>
 
-
-        {/* INFORMATIONS */}
-        <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
-
-            {/* DATE */}
-            <div className="rounded-xl bg-white/[0.03] p-3">
-
-                <p className="text-[11px] text-white/35">
-                    DATE
-                </p>
-
-                <p className="mt-1 text-sm font-medium text-white">
-                    {event.date}
-                </p>
-
-            </div>
-
-
-            {/* HEURE */}
-            <div className="rounded-xl bg-white/[0.03] p-3">
-
-                <p className="text-[11px] text-white/35">
-                    HEURE
-                </p>
-
-                <p className="mt-1 text-sm font-medium text-white">
-                    {event.heure}
-                </p>
-
-            </div>
-
-
-            {/* LIEU */}
-            <div className="rounded-xl bg-white/[0.03] p-3">
-
-                <p className="text-[11px] text-white/35">
-                    LIEU
-                </p>
-
-                <p className="mt-1 truncate text-sm font-medium text-white">
-                    {event.lieu}
-                </p>
-
-            </div>
-
-
-            {/* PRIX */}
-            <div className="rounded-xl bg-white/[0.03] p-3">
-
-                <p className="text-[11px] text-white/35">
-                    PRIX
-                </p>
-
-                <p className="mt-1 text-sm font-medium text-white">
-                    {event.prix} MAD
-                </p>
-
-            </div>
-
+        <div className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/60">
+            {events.length} événements
         </div>
 
+    </div>
 
-        {/* PLACES */}
-        <div className="mt-5 flex flex-col gap-3 border-t border-white/10 pt-4 sm:flex-row sm:items-center sm:justify-between">
 
-            <span className="w-fit rounded-full bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-400">
-                {event.nombre_places} places restantes
-            </span>
+    {/* LES ARTICLES — un article par événement */}
+    {events.map((event) => (
 
-            <span className="w-fit rounded-full bg-white/5 px-3 py-1.5 text-xs text-white/50">
-                Capacité : {event.nombre_places}
-            </span>
+        <article
+            key={event.id}
+            className="mb-4 rounded-2xl border border-white/10 bg-[#1d1230] p-5 transition hover:border-white/20 hover:bg-[#211536] sm:p-6"
+        >
 
-        </div>
+            {/* HEADER */}
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
 
-    </article>
-))}
+                <div>
 
-                    </section>
+                    <h3 className="text-lg font-bold text-white">
+                        {event.title}
+                    </h3>
+
+                    <p className="mt-2 text-sm leading-6 text-white/45">
+                        {event.description}
+                    </p>
+
+                </div>
+
+                <span className="w-fit rounded-full bg-[#f5c84c]/15 px-3 py-1 text-xs font-bold text-[#f5c84c]">
+                    Ouvert
+                </span>
+
+            </div>
+
+
+            {/* INFORMATIONS */}
+            <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
+
+                {/* DATE */}
+                <div className="rounded-xl bg-white/[0.03] p-3">
+
+                    <p className="text-[11px] text-white/35">
+                        DATE
+                    </p>
+
+                    <p className="mt-1 text-sm font-medium text-white">
+                        {event.date}
+                    </p>
+
+                </div>
+
+
+                {/* HEURE */}
+                <div className="rounded-xl bg-white/[0.03] p-3">
+
+                    <p className="text-[11px] text-white/35">
+                        HEURE
+                    </p>
+
+                    <p className="mt-1 text-sm font-medium text-white">
+                        {event.heure}
+                    </p>
+
+                </div>
+
+
+                {/* LIEU */}
+                <div className="rounded-xl bg-white/[0.03] p-3">
+
+                    <p className="text-[11px] text-white/35">
+                        LIEU
+                    </p>
+
+                    <p className="mt-1 truncate text-sm font-medium text-white">
+                        {event.lieu}
+                    </p>
+
+                </div>
+
+
+                {/* PRIX */}
+                <div className="rounded-xl bg-white/[0.03] p-3">
+
+                    <p className="text-[11px] text-white/35">
+                        PRIX
+                    </p>
+
+                    <p className="mt-1 text-sm font-medium text-white">
+                        {event.prix} MAD
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            {/* PLACES */}
+            <div className="mt-5 flex flex-col gap-3 border-t border-white/10 pt-4 sm:flex-row sm:items-center sm:justify-between">
+
+                <span className="w-fit rounded-full bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-400">
+                  {event.nombre_places - event.reservation_count} places restantes
+                </span>
+
+                <span className="w-fit rounded-full bg-white/5 px-3 py-1.5 text-xs text-white/50">
+                    Capacité : {event.nombre_places}
+                </span>
+
+            </div>
+
+        </article>
+
+    ))}
+
+</section>
+
 
                 </div>
 
