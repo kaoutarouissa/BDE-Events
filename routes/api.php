@@ -19,3 +19,4 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::post('/events', [EventController::class, 'store'])
     ->middleware(['auth:sanctum', 'bde']);
 Route::get('/events', [EventController::class, 'index']);
+Route::get('/reservations', [EventController::class, 'show']);

@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { getEvents, getMyReservations } from "../services/api";
+import { showEvent,getReservations } from "../services/api";
 
 function EtudiantDashboard() {
 
     const [events, setEvents] = useState([]);
     const [reservations, setReservations] = useState([]);
+    // const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
     const user = JSON.parse(localStorage.getItem("user"));
@@ -14,12 +15,14 @@ function EtudiantDashboard() {
         const loadData = async () => {
 
             try {
+               const eventsData = await showEvent();
+            const reservationsData = await getReservations();
 
-                const eventsData = await getEvents();
-                const reservationsData = await getMyReservations();
+            console.log("EVENTS :", eventsData);
+            console.log("RESERVATIONS :", reservationsData);
 
-                setEvents(eventsData);
-                setReservations(reservationsData);
+            setEvents(eventsData);
+            setReservations(reservationsData.reservations);
 
             } catch (error) {
 
@@ -222,15 +225,15 @@ function EtudiantDashboard() {
                                 <div className="flex flex-wrap gap-x-4 gap-y-2">
 
                                     <span className="text-[12.5px] text-white/70">
-                                        📅 {event.date}
+                                         {event.date}
                                     </span>
 
                                     <span className="text-[12.5px] text-white/70">
-                                        🕐 {event.heure}
+                                         {event.heure}
                                     </span>
 
                                     <span className="text-[12.5px] text-white/70">
-                                        📍 {event.lieu}
+                                         {event.lieu}
                                     </span>
 
                                 </div>

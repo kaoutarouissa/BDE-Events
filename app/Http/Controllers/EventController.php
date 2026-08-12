@@ -73,8 +73,11 @@ class EventController extends Controller
                 'events.lieu as event_lieu'
             )
             ->get();
-        return view('Etudiant', compact('events', 'user', 'reservationSInfo'));
-    }
+return response()->json([
+    'events' => $events,
+    'user' => $user,
+    'reservations' => $reservationSInfo,
+]);    }
 
     /**
      * Show the form for editing the specified resource.
