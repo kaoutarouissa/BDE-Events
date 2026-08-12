@@ -17,8 +17,8 @@ class EventController extends Controller
     {
         //
         $events = Event::withCount('reservation')->get();
-        return view('bde', compact('events'));
-        // return response()->json($events);
+        // return view('bde', compact('events'));
+        return response()->json($events);
     }
 
     /**

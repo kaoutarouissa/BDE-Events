@@ -1,7 +1,6 @@
-import { useState } from "react";
-import { logoutUser, createEvent } from "../services/api";
+import { useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { createEvent, showEvent,logoutUser } from "../services/api";
 function BdeDashboard() {
 
     const navigate = useNavigate();
@@ -112,6 +111,22 @@ function BdeDashboard() {
         }
     };
 
+const [events, setEvents] = useState([]);
+useEffect(() => {
+    const loadEvents = async () => {
+        try {
+            const data = await showEvent();
+
+            console.log(data);
+
+            setEvents(data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    loadEvents();
+}, []);
     // ===============================
     // LOGOUT
     // ===============================
@@ -547,86 +562,110 @@ function BdeDashboard() {
 
                         {/* CARD 1 */}
 
-                        <article className="rounded-2xl border border-white/10 bg-[#1d1230] p-5 transition hover:border-white/20 hover:bg-[#211536] sm:p-6">
+                       {events.map((event) => (
+    <article
+        key={event.id}
+        className="rounded-2xl border border-white/10 bg-[#1d1230] p-5 transition hover:border-white/20 hover:bg-[#211536] sm:p-6"
+    >
 
-                            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+        {/* HEADER */}
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
 
-                                <div>
+            <div>
 
-                                    <h3 className="text-lg font-bold text-white">
-                                        Soirée d'intégration ENAA
-                                    </h3>
+                <h3 className="text-lg font-bold text-white">
+                    {event.title}
+                </h3>
 
-                                    <p className="mt-2 text-sm leading-6 text-white/45">
-                                        Une soirée d'intégration pour accueillir
-                                        les nouveaux étudiants de l'école.
-                                    </p>
+                <p className="mt-2 text-sm leading-6 text-white/45">
+                    {event.description}
+                </p>
 
-                                </div>
+            </div>
 
-                                <span className="w-fit rounded-full bg-[#f5c84c]/15 px-3 py-1 text-xs font-bold text-[#f5c84c]">
-                                    Ouvert
-                                </span>
+            <span className="w-fit rounded-full bg-[#f5c84c]/15 px-3 py-1 text-xs font-bold text-[#f5c84c]">
+                Ouvert
+            </span>
 
-                            </div>
+        </div>
 
-                            <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
 
-                                <div className="rounded-xl bg-white/[0.03] p-3">
-                                    <p className="text-[11px] text-white/35">
-                                        DATE
-                                    </p>
+        {/* INFORMATIONS */}
+        <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
 
-                                    <p className="mt-1 text-sm font-medium text-white">
-                                        25 Juin 2025
-                                    </p>
-                                </div>
+            {/* DATE */}
+            <div className="rounded-xl bg-white/[0.03] p-3">
 
-                                <div className="rounded-xl bg-white/[0.03] p-3">
-                                    <p className="text-[11px] text-white/35">
-                                        HEURE
-                                    </p>
+                <p className="text-[11px] text-white/35">
+                    DATE
+                </p>
 
-                                    <p className="mt-1 text-sm font-medium text-white">
-                                        20:00
-                                    </p>
-                                </div>
+                <p className="mt-1 text-sm font-medium text-white">
+                    {event.date}
+                </p>
 
-                                <div className="rounded-xl bg-white/[0.03] p-3">
-                                    <p className="text-[11px] text-white/35">
-                                        LIEU
-                                    </p>
+            </div>
 
-                                    <p className="mt-1 truncate text-sm font-medium text-white">
-                                        Casablanca
-                                    </p>
-                                </div>
 
-                                <div className="rounded-xl bg-white/[0.03] p-3">
-                                    <p className="text-[11px] text-white/35">
-                                        PRIX
-                                    </p>
+            {/* HEURE */}
+            <div className="rounded-xl bg-white/[0.03] p-3">
 
-                                    <p className="mt-1 text-sm font-medium text-white">
-                                        0 MAD
-                                    </p>
-                                </div>
+                <p className="text-[11px] text-white/35">
+                    HEURE
+                </p>
 
-                            </div>
+                <p className="mt-1 text-sm font-medium text-white">
+                    {event.heure}
+                </p>
 
-                            <div className="mt-5 flex flex-col gap-3 border-t border-white/10 pt-4 sm:flex-row sm:items-center sm:justify-between">
+            </div>
 
-                                <span className="w-fit rounded-full bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-400">
-                                    100 places restantes
-                                </span>
 
-                                <span className="w-fit rounded-full bg-white/5 px-3 py-1.5 text-xs text-white/50">
-                                    Capacité : 250
-                                </span>
+            {/* LIEU */}
+            <div className="rounded-xl bg-white/[0.03] p-3">
 
-                            </div>
+                <p className="text-[11px] text-white/35">
+                    LIEU
+                </p>
 
-                        </article>
+                <p className="mt-1 truncate text-sm font-medium text-white">
+                    {event.lieu}
+                </p>
+
+            </div>
+
+
+            {/* PRIX */}
+            <div className="rounded-xl bg-white/[0.03] p-3">
+
+                <p className="text-[11px] text-white/35">
+                    PRIX
+                </p>
+
+                <p className="mt-1 text-sm font-medium text-white">
+                    {event.prix} MAD
+                </p>
+
+            </div>
+
+        </div>
+
+
+        {/* PLACES */}
+        <div className="mt-5 flex flex-col gap-3 border-t border-white/10 pt-4 sm:flex-row sm:items-center sm:justify-between">
+
+            <span className="w-fit rounded-full bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-400">
+                {event.nombre_places} places restantes
+            </span>
+
+            <span className="w-fit rounded-full bg-white/5 px-3 py-1.5 text-xs text-white/50">
+                Capacité : {event.nombre_places}
+            </span>
+
+        </div>
+
+    </article>
+))}
 
                     </section>
 

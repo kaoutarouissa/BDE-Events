@@ -67,3 +67,19 @@ export const createEvent = async (eventData) => {
 
     return data;
 };
+export const showEvent = async(eventData) =>{
+    const response= await fetch(`${API_URL}/events`,{
+        method : "GET",
+        headers:{
+             "Accept": "application/json",
+        },
+    });
+    const data = await response.json();
+    if(!response.ok){
+        throw{
+            status : response.status,
+            data: data,
+        }
+    }
+    return data;
+}
