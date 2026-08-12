@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import BdeDashboard from "./pages/BdeDashboard";
 import EtudiantDashboard from "./pages/EtudiantDashboard";
+import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
 function App() {
     return (
         <BrowserRouter>
@@ -14,10 +15,18 @@ function App() {
 
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register/>} />
-                <Route path="/bde-dashboard" element={<BdeDashboard />} />
+                <Route path="/bde-dashboard"  element={<BdeDashboard /> } />
 
             <Route path="/etudiant-dashboard" element={<EtudiantDashboard />} />
-            </Routes>
+            <Route
+                    path="/admin/events/create"
+                    element={
+                        <ProtectedAdminRoute>
+                            <BdeDashboard />
+                        </ProtectedAdminRoute>
+                    }
+                    />
+                    </Routes>
         </BrowserRouter>
     );
 }

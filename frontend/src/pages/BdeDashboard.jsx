@@ -1,366 +1,641 @@
+import { useState } from "react";
+import { logoutUser, createEvent } from "../services/api";
+import { useNavigate } from "react-router-dom";
 
-        
 function BdeDashboard() {
-  return (
-    <div className="glow absolute w-[420px] h-[420px] rounded-full -top-40 -right-32 pointer-events-none">
 
-      {/* Header */}
-      <header
-        className="sticky top-0 z-20 bg-bdeep/70 border-b border-line"
-        style={{ backdropFilter: "blur(10px)" }}
-      >
-        <div className="max-w-[1080px] mx-auto px-6 py-4 flex items-center justify-between">
+    const navigate = useNavigate();
 
-          <div className="flex items-center gap-2.5">
-            <div
-              className="w-[30px] h-[30px] rounded-[9px] bg-gold flex items-center justify-center font-sora font-extrabold text-sm"
-              style={{ color: "#120a20" }}
-            >
-              B
-            </div>
+    const user = JSON.parse(localStorage.getItem("user"));
 
-            <span className="font-sora font-bold text-cream text-base">
-              BDE-Events
-            </span>
-          </div>
+    console.log("USER :", user);
+    console.log("TOKEN :", localStorage.getItem("token"));
 
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2.5">
-              <span className="text-cream text-[13px]">
-                <span className="text-muted">Bienvenue,</span>{" "}
-                <span className="font-semibold">Utilisateur</span>
-              </span>
-            </div>
+    // ===============================
+    // FORM DATA
+    // ===============================
 
-            <button
-              type="button"
-              className="flex items-center gap-2 px-4 py-2 rounded-[10px] border border-line text-cream text-[13px] font-medium"
-            >
-              Déconnexion
-            </button>
-          </div>
+    const [formData, setFormData] = useState({
+        title: "",
+        description: "",
+        date: "",
+        heure: "",
+        lieu: "",
+        prix: "",
+        nombre_places: ""
+    });
 
-        </div>
-      </header>
+    const [message, setMessage] = useState("");
 
-      <main className="relative max-w-[1080px] mx-auto px-6 pt-12">
+    // ===============================
+    // HANDLE CHANGE
+    // ===============================
 
-        {/* Hero */}
-        <div className="flex items-center gap-2.5 text-gold font-semibold text-xs tracking-wider">
-          <span className="w-[22px] h-[1.5px] bg-gold inline-block"></span>
-          BUREAU DES ÉLÈVES — ENAA · ADMIN
-        </div>
+    const handleChange = (e) => {
 
-        <h1 className="font-sora font-extrabold text-cream text-3xl md:text-4xl leading-tight mt-3 mb-3 max-w-[620px]">
-          Gère tes événements{" "}
-          <span className="text-gold">sans</span> prise de tête.
-        </h1>
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
 
-        <p className="text-muted text-[15px] leading-relaxed max-w-[520px] mb-10">
-          Publie un événement, suis les inscriptions et garde un œil sur les
-          places restantes, en direct, pour chaque soirée, workshop ou tournoi.
-        </p>
+    };
 
-        {/* Grid */}
-        <div
-          className="grid gap-6 items-start"
-          style={{
-            gridTemplateColumns: "minmax(280px, 380px) 1fr",
-          }}
-        >
+    // ===============================
+    // HANDLE SUBMIT
+    // ===============================
 
-          {/* Form */}
-          <section className="bg-cream rounded-2xl p-6 sticky top-[88px]">
+    const handleSubmit = async (e) => {
 
-            <div className="flex items-center justify-between">
-              <p className="text-pink font-bold text-[11px] tracking-wider m-0">
-                ACCÈS RAPIDE
-              </p>
+        e.preventDefault();
 
-              <div className="w-[30px] h-[30px] rounded-[9px] bg-pink/10 flex items-center justify-center">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#ec4c82"
-                  strokeWidth="2"
-                >
-                  <path d="M2 9a3 3 0 1 0 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 1 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z" />
-                </svg>
-              </div>
-            </div>
+        setMessage("");
 
-            <h2
-              className="font-sora font-extrabold text-2xl mt-2.5 mb-1"
-              style={{ color: "#241636" }}
-            >
-              Créer un événement.
-            </h2>
+        try {
 
-            <p
-              className="text-[13.5px] leading-snug m-0"
-              style={{ color: "#6b6178" }}
-            >
-              Remplis les infos ci-dessous pour le rendre visible et ouvert aux
-              inscriptions.
-            </p>
+            const data = await createEvent(formData);
 
-            <form className="mt-5">
+            console.log("EVENT CREATED :", data);
 
-              <div className="mb-3.5">
-                <label
-                  className="block text-xs font-semibold mb-1.5"
-                  style={{ color: "#4a4157" }}
-                >
-                  Titre de l'événement
-                </label>
+            setMessage("✅ " + data.message);
 
-                <input
-                  type="text"
-                  placeholder="Soirée d'intégration ENAA"
-                  className="w-full h-10 rounded-[9px] border px-3 text-[13.5px]"
-                  style={{
-                    borderColor: "#ded5c4",
-                    background: "#fffdf9",
-                    color: "#241636",
-                  }}
-                />
-              </div>
+            // vider le formulaire
+            setFormData({
+                title: "",
+                description: "",
+                date: "",
+                heure: "",
+                lieu: "",
+                prix: "",
+                nombre_places: ""
+            });
 
-              <div className="mb-3.5">
-                <label
-                  className="block text-xs font-semibold mb-1.5"
-                  style={{ color: "#4a4157" }}
-                >
-                  Description
-                </label>
+        } catch (error) {
 
-                <textarea
-                  rows="3"
-                  placeholder="Quelques lignes pour donner envie de venir."
-                  className="w-full rounded-[9px] border px-3 py-2 text-[13.5px] resize-none"
-                  style={{
-                    borderColor: "#ded5c4",
-                    background: "#fffdf9",
-                    color: "#241636",
-                  }}
-                ></textarea>
-              </div>
+            console.error("ERROR :", error);
 
-              <div className="flex gap-3">
+            // étudiant / pas admin
+            if (error.status === 403) {
 
-                <div className="mb-3.5 flex-1">
-                  <label
-                    className="block text-xs font-semibold mb-1.5"
-                    style={{ color: "#4a4157" }}
-                  >
-                    Date
-                  </label>
+                setMessage(
+                    "⛔ Vous n'êtes pas autorisé à créer un événement."
+                );
 
-                  <input
-                    type="date"
-                    className="w-full h-10 rounded-[9px] border px-3 text-[13.5px]"
-                    style={{
-                      borderColor: "#ded5c4",
-                      background: "#fffdf9",
-                      color: "#241636",
-                    }}
-                  />
-                </div>
+            }
 
-                <div className="mb-3.5 flex-1">
-                  <label
-                    className="block text-xs font-semibold mb-1.5"
-                    style={{ color: "#4a4157" }}
-                  >
-                    Heure
-                  </label>
+            // validation Laravel
+            else if (error.status === 422) {
 
-                  <input
-                    type="time"
-                    className="w-full h-10 rounded-[9px] border px-3 text-[13.5px]"
-                    style={{
-                      borderColor: "#ded5c4",
-                      background: "#fffdf9",
-                      color: "#241636",
-                    }}
-                  />
-                </div>
+                setMessage(
+                    "❌ Vérifiez les informations saisies."
+                );
 
-              </div>
+                console.log("Validation errors :", error.data);
 
-              <div className="mb-3.5">
-                <label
-                  className="block text-xs font-semibold mb-1.5"
-                  style={{ color: "#4a4157" }}
-                >
-                  Lieu
-                </label>
+            }
 
-                <input
-                  type="text"
-                  placeholder="Le Hangar, Casablanca"
-                  className="w-full h-10 rounded-[9px] border px-3 text-[13.5px]"
-                  style={{
-                    borderColor: "#ded5c4",
-                    background: "#fffdf9",
-                    color: "#241636",
-                  }}
-                />
-              </div>
+            // pas connecté
+            else if (error.status === 401) {
 
-              <div className="flex gap-3">
+                setMessage(
+                    "❌ Vous devez être connecté."
+                );
 
-                <div className="mb-3.5 flex-1">
-                  <label
-                    className="block text-xs font-semibold mb-1.5"
-                    style={{ color: "#4a4157" }}
-                  >
-                    Prix (MAD)
-                  </label>
+            }
 
-                  <input
-                    type="number"
-                    min="0"
-                    placeholder="0"
-                    className="w-full h-10 rounded-[9px] border px-3 text-[13.5px]"
-                    style={{
-                      borderColor: "#ded5c4",
-                      background: "#fffdf9",
-                      color: "#241636",
-                    }}
-                  />
-                </div>
+            else {
 
-                <div className="mb-3.5 flex-1">
-                  <label
-                    className="block text-xs font-semibold mb-1.5"
-                    style={{ color: "#4a4157" }}
-                  >
-                    Jauge maximale
-                  </label>
+                setMessage(
+                    "❌ Une erreur est survenue."
+                );
 
-                  <input
-                    type="number"
-                    min="1"
-                    placeholder="250"
-                    className="w-full h-10 rounded-[9px] border px-3 text-[13.5px]"
-                    style={{
-                      borderColor: "#ded5c4",
-                      background: "#fffdf9",
-                      color: "#241636",
-                    }}
-                  />
-                </div>
+            }
+        }
+    };
 
-              </div>
+    // ===============================
+    // LOGOUT
+    // ===============================
 
-              <button
-                type="submit"
-                className="w-full h-11 mt-1.5 rounded-[10px] bg-gold font-sora font-bold text-sm flex items-center justify-center gap-2"
-                style={{ color: "#241636" }}
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                >
-                  <path d="M12 5v14M5 12h14" />
-                </svg>
+    const handleLogout = async () => {
 
-                Publier l'événement
-              </button>
+        try {
 
-            </form>
-          </section>
+            await logoutUser();
 
-          {/* Dashboard list */}
-          <section className="min-w-0">
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
 
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="font-sora font-bold text-cream text-xl m-0">
-                Tableau de bord
-              </h2>
-            </div>
+            navigate("/");
 
-            <div className="flex flex-col gap-4">
+        } catch (error) {
 
-              {/* Event Card */}
-              <div className="bg-card border border-line rounded-2xl px-5 pt-[18px] pb-4">
+            console.error(error);
 
-                <div className="flex justify-between gap-3">
+        }
 
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-sora font-bold text-cream text-[16.5px] mb-1 mt-0">
-                      Soirée d'intégration ENAA
-                    </h3>
+    };
 
-                    <p className="text-muted text-[13px] leading-relaxed m-0">
-                      Quelques lignes sur l'événement.
-                    </p>
-                  </div>
+    return (
 
-                  <div className="flex-shrink-0 h-[22px] px-2.5 rounded-full text-[11px] font-bold flex items-center bg-gold/15 text-gold">
-                    Ouvert
-                  </div>
+        <div className="min-h-screen bg-[#120a20] text-white">
 
-                </div>
+            {/* ================= HEADER ================= */}
 
-                <div className="flex flex-wrap gap-x-4 gap-y-2 mt-3">
+            <header className="sticky top-0 z-50 border-b border-white/10 bg-[#120a20]/90 backdrop-blur-md">
 
-                  <span className="flex items-center gap-1.5 text-[12.5px] text-creamdim">
-                    Date
-                  </span>
+                <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
 
-                  <span className="flex items-center gap-1.5 text-[12.5px] text-creamdim">
-                    Heure
-                  </span>
+                    {/* LOGO */}
 
-                  <span className="flex items-center gap-1.5 text-[12.5px] text-creamdim">
-                    Lieu
-                  </span>
+                    <div className="flex items-center gap-3">
 
-                  <span className="flex items-center gap-1.5 text-[12.5px] text-creamdim">
-                    Prix MAD
-                  </span>
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#f5c84c] font-bold text-[#120a20]">
+                            B
+                        </div>
 
-                </div>
+                        <div>
 
-                <div className="barcode h-[1px] my-4"></div>
+                            <p className="font-bold text-white">
+                                BDE-Events
+                            </p>
 
-                <div className="flex items-center gap-3.5">
+                            <p className="hidden text-xs text-white/50 sm:block">
+                                Bureau des élèves
+                            </p>
 
-                  <div className="flex-1">
-
-                    <div className="flex justify-between items-center mt-3">
-
-                      <span className="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-semibold">
-                        100 places restantes
-                      </span>
-
-                      <span className="px-3 py-1 rounded-full bg-gray-100 text-gray-600 text-xs font-medium">
-                        Capacité : 250
-                      </span>
+                        </div>
 
                     </div>
 
-                  </div>
+                    {/* USER */}
+
+                    <div className="flex items-center gap-3">
+
+                        <div className="hidden text-right sm:block">
+
+                            <p className="text-xs text-white/40">
+                                Bienvenue,
+                            </p>
+
+                            <p className="text-sm font-semibold text-white">
+                                {user?.name}
+                            </p>
+
+                        </div>
+
+                        <button
+                            type="button"
+                            onClick={handleLogout}
+                            className="rounded-xl border border-white/10 px-3 py-2 text-sm text-white transition hover:bg-white/10 sm:px-4"
+                        >
+                            Déconnexion
+                        </button>
+
+                    </div>
 
                 </div>
 
-              </div>
+            </header>
 
-            </div>
-          </section>
+
+            {/* ================= MAIN ================= */}
+
+            <main className="relative mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
+
+                {/* GLOW */}
+
+                <div className="pointer-events-none absolute -right-40 -top-40 h-[400px] w-[400px] rounded-full bg-[#8b5cf6]/10 blur-3xl" />
+
+
+                {/* ================= HERO ================= */}
+
+                <section className="relative mb-10">
+
+                    <div className="mb-3 flex items-center gap-3 text-xs font-semibold tracking-[0.2em] text-[#f5c84c]">
+
+                        <span className="h-px w-6 bg-[#f5c84c]" />
+
+                        BUREAU DES ÉLÈVES — ENAA · ADMIN
+
+                    </div>
+
+                    <h1 className="max-w-3xl text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
+
+                        Gère tes événements{" "}
+
+                        <span className="text-[#f5c84c]">
+                            sans
+                        </span>
+
+                        {" "}prise de tête.
+
+                    </h1>
+
+                    <p className="mt-4 max-w-2xl text-sm leading-7 text-white/50 sm:text-base">
+
+                        Publie un événement, suis les inscriptions et garde
+                        un œil sur les places restantes, en direct, pour
+                        chaque soirée, workshop ou tournoi.
+
+                    </p>
+
+                </section>
+
+
+                {/* ================= GRID ================= */}
+
+                <div className="grid gap-6 lg:grid-cols-[380px_1fr]">
+
+
+                    {/* ================= FORM ================= */}
+
+                    <section className="h-fit rounded-2xl bg-[#fffdf9] p-5 text-[#241636] shadow-2xl sm:p-6 lg:sticky lg:top-24">
+
+
+                        {/* FORM HEADER */}
+
+                        <div className="flex items-center justify-between">
+
+                            <div>
+
+                                <p className="text-[11px] font-bold tracking-widest text-[#ec4c82]">
+                                    ACCÈS RAPIDE
+                                </p>
+
+                                <h2 className="mt-2 text-2xl font-extrabold">
+                                    Créer un événement.
+                                </h2>
+
+                            </div>
+
+                            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#ec4c82]/10">
+
+                                <svg
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="#ec4c82"
+                                    strokeWidth="2"
+                                >
+
+                                    <path d="M2 9a3 3 0 1 0 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 1 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z" />
+
+                                </svg>
+
+                            </div>
+
+                        </div>
+
+
+                        <p className="mt-2 text-sm leading-6 text-[#6b6178]">
+
+                            Remplis les informations ci-dessous pour rendre
+                            ton événement visible et ouvert aux inscriptions.
+
+                        </p>
+
+
+                        {/* ================= MESSAGE ================= */}
+
+                        {message && (
+
+                            <div className="mt-4 rounded-xl bg-[#241636] px-4 py-3 text-sm text-white">
+
+                                {message}
+
+                            </div>
+
+                        )}
+
+
+                        {/* ================= FORM ================= */}
+
+                        <form
+                            onSubmit={handleSubmit}
+                            className="mt-6 space-y-4"
+                        >
+
+
+                            {/* TITLE */}
+
+                            <div>
+
+                                <label className="mb-1.5 block text-xs font-semibold text-[#4a4157]">
+
+                                    Titre de l'événement
+
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="title"
+                                    value={formData.title}
+                                    onChange={handleChange}
+                                    placeholder="Soirée d'intégration ENAA"
+                                    className="h-11 w-full rounded-xl border border-[#ded5c4] bg-[#fffdf9] px-3 text-sm outline-none transition placeholder:text-[#9c94a3] focus:border-[#f5c84c] focus:ring-2 focus:ring-[#f5c84c]/20"
+                                    required
+                                />
+
+                            </div>
+
+
+                            {/* DESCRIPTION */}
+
+                            <div>
+
+                                <label className="mb-1.5 block text-xs font-semibold text-[#4a4157]">
+
+                                    Description
+
+                                </label>
+
+                                <textarea
+                                    name="description"
+                                    value={formData.description}
+                                    onChange={handleChange}
+                                    rows="4"
+                                    placeholder="Quelques lignes pour donner envie de venir."
+                                    className="w-full resize-none rounded-xl border border-[#ded5c4] bg-[#fffdf9] px-3 py-3 text-sm outline-none transition placeholder:text-[#9c94a3] focus:border-[#f5c84c] focus:ring-2 focus:ring-[#f5c84c]/20"
+                                />
+
+                            </div>
+
+
+                            {/* DATE + HEURE */}
+
+                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+
+
+                                {/* DATE */}
+
+                                <div>
+
+                                    <label className="mb-1.5 block text-xs font-semibold text-[#4a4157]">
+
+                                        Date
+
+                                    </label>
+
+                                    <input
+                                        type="date"
+                                        name="date"
+                                        value={formData.date}
+                                        onChange={handleChange}
+                                        className="h-11 w-full rounded-xl border border-[#ded5c4] bg-[#fffdf9] px-3 text-sm outline-none focus:border-[#f5c84c]"
+                                        required
+                                    />
+
+                                </div>
+
+
+                                {/* HEURE */}
+
+                                <div>
+
+                                    <label className="mb-1.5 block text-xs font-semibold text-[#4a4157]">
+
+                                        Heure
+
+                                    </label>
+
+                                    <input
+                                        type="time"
+                                        name="heure"
+                                        value={formData.heure}
+                                        onChange={handleChange}
+                                        className="h-11 w-full rounded-xl border border-[#ded5c4] bg-[#fffdf9] px-3 text-sm outline-none focus:border-[#f5c84c]"
+                                    />
+
+                                </div>
+
+                            </div>
+
+
+                            {/* LIEU */}
+
+                            <div>
+
+                                <label className="mb-1.5 block text-xs font-semibold text-[#4a4157]">
+
+                                    Lieu
+
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="lieu"
+                                    value={formData.lieu}
+                                    onChange={handleChange}
+                                    placeholder="Le Hangar, Casablanca"
+                                    className="h-11 w-full rounded-xl border border-[#ded5c4] bg-[#fffdf9] px-3 text-sm outline-none transition placeholder:text-[#9c94a3] focus:border-[#f5c84c] focus:ring-2 focus:ring-[#f5c84c]/20"
+                                    required
+                                />
+
+                            </div>
+
+
+                            {/* PRIX + CAPACITY */}
+
+                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+
+
+                                {/* PRIX */}
+
+                                <div>
+
+                                    <label className="mb-1.5 block text-xs font-semibold text-[#4a4157]">
+
+                                        Prix (MAD)
+
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        name="prix"
+                                        value={formData.prix}
+                                        onChange={handleChange}
+                                        min="0"
+                                        placeholder="0"
+                                        className="h-11 w-full rounded-xl border border-[#ded5c4] bg-[#fffdf9] px-3 text-sm outline-none focus:border-[#f5c84c]"
+                                        required
+                                    />
+
+                                </div>
+
+
+                                {/* CAPACITY */}
+
+                                <div>
+
+                                    <label className="mb-1.5 block text-xs font-semibold text-[#4a4157]">
+
+                                        Jauge maximale
+
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        name="nombre_places"
+                                        value={formData.nombre_places}
+                                        onChange={handleChange}
+                                        min="1"
+                                        step="1"
+                                        placeholder="250"
+                                        className="h-11 w-full rounded-xl border border-[#ded5c4] bg-[#fffdf9] px-3 text-sm outline-none focus:border-[#f5c84c]"
+                                        required
+                                    />
+
+                                </div>
+
+                            </div>
+
+
+                            {/* BUTTON */}
+
+                            <button
+                                type="submit"
+                                className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#f5c84c] font-bold text-[#241636] transition hover:bg-[#ffd866] active:scale-[0.98]"
+                            >
+
+                                <svg
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2.5"
+                                >
+
+                                    <path d="M12 5v14M5 12h14" />
+
+                                </svg>
+
+                                Publier l'événement
+
+                            </button>
+
+                        </form>
+
+                    </section>
+
+
+                    {/* ================= EVENTS ================= */}
+
+                    <section className="min-w-0">
+
+                        <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+
+                            <div>
+
+                                <h2 className="text-xl font-bold text-white sm:text-2xl">
+                                    Tableau de bord
+                                </h2>
+
+                                <p className="mt-1 text-sm text-white/40">
+                                    Gestion de tes événements
+                                </p>
+
+                            </div>
+
+                            <div className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/60">
+                                3 événements
+                            </div>
+
+                        </div>
+
+
+                        {/* CARD 1 */}
+
+                        <article className="rounded-2xl border border-white/10 bg-[#1d1230] p-5 transition hover:border-white/20 hover:bg-[#211536] sm:p-6">
+
+                            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+
+                                <div>
+
+                                    <h3 className="text-lg font-bold text-white">
+                                        Soirée d'intégration ENAA
+                                    </h3>
+
+                                    <p className="mt-2 text-sm leading-6 text-white/45">
+                                        Une soirée d'intégration pour accueillir
+                                        les nouveaux étudiants de l'école.
+                                    </p>
+
+                                </div>
+
+                                <span className="w-fit rounded-full bg-[#f5c84c]/15 px-3 py-1 text-xs font-bold text-[#f5c84c]">
+                                    Ouvert
+                                </span>
+
+                            </div>
+
+                            <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
+
+                                <div className="rounded-xl bg-white/[0.03] p-3">
+                                    <p className="text-[11px] text-white/35">
+                                        DATE
+                                    </p>
+
+                                    <p className="mt-1 text-sm font-medium text-white">
+                                        25 Juin 2025
+                                    </p>
+                                </div>
+
+                                <div className="rounded-xl bg-white/[0.03] p-3">
+                                    <p className="text-[11px] text-white/35">
+                                        HEURE
+                                    </p>
+
+                                    <p className="mt-1 text-sm font-medium text-white">
+                                        20:00
+                                    </p>
+                                </div>
+
+                                <div className="rounded-xl bg-white/[0.03] p-3">
+                                    <p className="text-[11px] text-white/35">
+                                        LIEU
+                                    </p>
+
+                                    <p className="mt-1 truncate text-sm font-medium text-white">
+                                        Casablanca
+                                    </p>
+                                </div>
+
+                                <div className="rounded-xl bg-white/[0.03] p-3">
+                                    <p className="text-[11px] text-white/35">
+                                        PRIX
+                                    </p>
+
+                                    <p className="mt-1 text-sm font-medium text-white">
+                                        0 MAD
+                                    </p>
+                                </div>
+
+                            </div>
+
+                            <div className="mt-5 flex flex-col gap-3 border-t border-white/10 pt-4 sm:flex-row sm:items-center sm:justify-between">
+
+                                <span className="w-fit rounded-full bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-400">
+                                    100 places restantes
+                                </span>
+
+                                <span className="w-fit rounded-full bg-white/5 px-3 py-1.5 text-xs text-white/50">
+                                    Capacité : 250
+                                </span>
+
+                            </div>
+
+                        </article>
+
+                    </section>
+
+                </div>
+
+            </main>
 
         </div>
-      </main>
-    </div>
-  )
-};
+    );
+}
 
 export default BdeDashboard;

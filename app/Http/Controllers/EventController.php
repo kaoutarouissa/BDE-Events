@@ -45,9 +45,12 @@ class EventController extends Controller
             'nombre_places' => 'required|integer|min:1',
         ]);
 
-        Event::create($validate);
-
-        return redirect()->route('bde-dashboard');
+        $event=Event::create($validate);
+        return response()->json([
+            'message'=>'Evenement  ajoutee avec succes',
+            'event'=>$event
+        ],201);
+        // return redirect()->route('bde-dashboard');
     }
 
     /**

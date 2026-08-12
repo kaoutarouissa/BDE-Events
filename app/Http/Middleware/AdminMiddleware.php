@@ -15,12 +15,18 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-          if (!auth()->check()) {
-        abort(403); // ou redirect()->route('login');
-    }
-         if (auth()->user()->role != 'bde') {
-            abort(403);
+        
+      if (!$request->user()) {
+            return response()->json([
+                'message' => 'Unauthenticated'
+            ], 401);
         }
-        return $next($request);
+
+        if ($request->user()->role !== 'bde') {
+            return response()->json([
+                'message' => 'Forbidden'
+            ], 403);
     }
+    return $next($request);
+}
 }
