@@ -1,0 +1,14 @@
+services:
+  api:
+    image: kaoutarouissa25/bde-events-api:v1
+    container_name: bde-events-api
+    ports:
+      - "8000:8000"
+
+  react:
+    image: kaoutarouissa25/bde-events-react:v1
+    container_name: bde-events-react
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
