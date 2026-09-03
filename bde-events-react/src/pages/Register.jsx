@@ -1,6 +1,45 @@
 import { Link } from "react-router-dom";
-
+import { useState } from "react";
 function Register() {
+  const [formData, setFormData] = useState({
+  name: "",
+  email: "",
+  password: "",
+  password_confirmation: "",
+  role: "",
+});
+const handleChange = (e) => {
+  setFormData({
+    ...formData,
+    [e.target.name]: e.target.value,
+  });
+};
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const response = await fetch("http://localhost:8000/api/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      alert("Compte créé avec succès !");
+      console.log(data);
+    } else {
+      console.log(data);
+      alert("Erreur lors de l'inscription");
+    }
+  } catch (error) {
+    console.log(error);
+    alert("Erreur de connexion avec le serveur");
+  }
+};
   return (
 <div className="min-h-screen w-full bg-[#241636] grid grid-cols-1 lg:grid-cols-2 items-center gap-32 px-6 lg:px-16 py-10 mx-auto ">
       {/* Left: pitch */}
@@ -115,7 +154,7 @@ function Register() {
           Quelques infos et tu es prêt à réserver.
         </p>
 
-        <form>
+        <form onSubmit={handleSubmit}>
 
           {/* Nom */}
           <div className="mb-3.5">
@@ -130,6 +169,8 @@ function Register() {
               type="text"
               placeholder="Bouzidi"
               name="name"
+              value={formData.name}
+              onChange={handleChange}
               className="w-full h-10 rounded-[9px] border px-3 text-[13.5px]"
               style={{
                 borderColor: "#ded5c4",
@@ -150,6 +191,8 @@ function Register() {
 
             <select
               name="role"
+               value={formData.role}
+              onChange={handleChange}
               className="w-full h-10 rounded-[9px] border px-3 text-[13.5px] focus:outline-none focus:ring-2 focus:ring-emerald-500"
               style={{
                 borderColor: "#ded5c4",
@@ -176,6 +219,8 @@ function Register() {
               type="email"
               placeholder="sara.bouzidi@enaa.ma"
               name="email"
+              value={formData.email}
+  onChange={handleChange}
               className="w-full h-10 rounded-[9px] border px-3 text-[13.5px]"
               style={{
                 borderColor: "#ded5c4",
@@ -198,6 +243,8 @@ function Register() {
               type="password"
               placeholder="8 caractères minimum"
               name="password"
+              value={formData.password}
+  onChange={handleChange}
               className="w-full h-10 rounded-[9px] border px-3 text-[13.5px]"
               style={{
                 borderColor: "#ded5c4",
@@ -218,6 +265,8 @@ function Register() {
 
             <input
               type="password"
+              value={formData.password_confirmation}
+  onChange={handleChange}
               placeholder="Ressaisis ton mot de passe"
               name="password_confirmation"
               className="w-full h-10 rounded-[9px] border px-3 text-[13.5px]"
