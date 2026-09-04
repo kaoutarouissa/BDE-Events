@@ -1,10 +1,30 @@
 services:
+  mysql:
+    image: mysql:8.0
+    container_name: bde-events-mysql
+    environment:
+      MYSQL_DATABASE: bde-event
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
   api:
     build: ./bde-events-api
     image: kaoutarouissa25/bde-events-api:v2
     container_name: bde-events-api
+    env_file:
+      - ./bde-events-api/.env
     ports:
       - "8000:8000"
+    depends_on:
+      mysql:
+        condition: service_healthy
 
   react:
     build: ./bde-events-react
@@ -14,3 +34,6 @@ services:
       - "8080:80"
     depends_on:
       - api
+
+volumes:
+  mysql-data:

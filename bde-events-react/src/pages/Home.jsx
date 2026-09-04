@@ -6,7 +6,7 @@ import TicketCard from "../components/TicketCard";
 function Home() {
     return (
         <>
-            <Background />
+            <Background ></Background>
             <Navbar />
             <Hero />
             {/* <TicketCard/> */}
